@@ -1,3 +1,56 @@
 body {
-  background-color: rebeccapurple;
+  background-color: rgba(10, 10, 15, 1);
+}
+
+body header {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(200px, 1fr));
+
+  justify-content: center;
+  background-color: rgb(28, 30, 40, 0.2);
+
+  height: 7vh;
+}
+
+header #svgDiv {
+  width: 4.5vh;
+  height: 4.5vh;
+
+  margin-left: 3%;
+
+  grid-column: 1;
+  grid-row: 1;
+
+  align-self: center;
+  justify-self: start;
+
+  cursor: pointer;
+  background-color: none;
+}
+
+body header button {
+  color: white;
+  background-color: rgb(28, 30, 40, 0);
+
+  border: none;
+  cursor: pointer;
+
+  width: 10vh;
+  height: 4vh;
+}
+
+body header button:hover {
+  background-color: rgb(28, 30, 40, 0.4);
+  transition: background-color 1s ease, transform 2s ease;
+}
+
+header #buttonDiv {
+  display: flex;
+  justify-content: space-between;
+
+  width: 50%;
+
+  grid-column: 2;
+  grid-row: 1;
+  place-self: center;
 }
