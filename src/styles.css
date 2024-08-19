@@ -1,5 +1,5 @@
 body {
-  background-color: rgba(10, 10, 15, 1);
+  background-color: rgb(12, 12, 20, 1);
 }
 
 body header {
@@ -7,29 +7,34 @@ body header {
   grid-template-columns: repeat(3, minmax(200px, 1fr));
 
   justify-content: center;
-  background-color: rgb(10, 10, 15, 1);
+  background-color: rgb(12, 12, 20, 1);
 
-  border-bottom: 1.5px rgb(28, 30, 40, 0.3) solid;
+  border-bottom: 1.5px rgb(28, 30, 40, 0.4) solid;
 
   height: 7vh;
 }
 
-header #svgDiv {
-  width: 6vh;
-  height: 4.5vh;
-
-  margin-left: 0;
-
-  grid-column: 1;
-  grid-row: 1;
+header #iconDiv {
+  width: 3.7vh;
+  height: 3.7vh;
+  background-color: rgb(10, 10, 15, 1);
 
   align-self: center;
   justify-self: start;
 
-  cursor: pointer;
-  background-color: none;
+  align-self: center;
+  justify-self: start;
 
-  background-color: rgb(10, 10, 15, 1);
+  grid-column: 1;
+  grid-row: 1;
+}
+
+header #svgDiv {
+  width: 3.7vh;
+  min-height: 3.7vh;
+
+  margin-left: 1vh;
+  cursor: pointer;
 }
 
 body header button {
@@ -39,8 +44,11 @@ body header button {
   border: none;
   cursor: pointer;
 
-  width: 10vh;
-  height: 3vh;
+  font-weight: 500;
+  font-family: San Francisco;
+
+  width: 8vh;
+  height: 3.2vh;
 
   background: linear-gradient(
       to right,
@@ -51,7 +59,7 @@ body header button {
   background-size: 0.1em 100%, 0.1em 0;
   background-position: 0 100%, 0 100%;
   background-repeat: no-repeat;
-  transition: background-size 400ms;
+  transition: background-size 300ms;
 }
 
 body header button:hover {
@@ -62,9 +70,9 @@ body header button:hover {
 
 header #buttonDiv {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
 
-  margin-left: -83vh;
+  margin-left: -628px;
 
   width: 50%;
 
@@ -72,28 +80,107 @@ header #buttonDiv {
   grid-row: 1;
   place-self: center;
 
-  border-right: 1.5px rgb(110, 110, 110, 0.5) solid;
+  border-right: 1px rgb(110, 110, 110, 0.7) solid;
 }
 
 header #buttonDiv {
-  transition: 1s ease, transform 2s ease;
+  transition: 1 ease-in-out, transform 0.3s ease;
   animation-direction: normal;
 }
 
 @keyframes menuBarAppear {
   0% {
-    margin-left: -83vh;
+    margin-left: -628px;
   }
   100% {
-    margin-left: -18vh;
+    margin-left: -22vh;
   }
 }
 
 @keyframes menuDisappear {
   0% {
-    margin-left: -18vh;
+    margin-left: -22vh;
   }
   100% {
-    margin-left: -83vh;
+    margin-left: -628px;
   }
+}
+
+#bodyContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background-color: rgba(10, 10, 15, 1);
+
+  width: 100%;
+  height: 85vh;
+
+  padding: 5vh;
+}
+
+#bodyContainer #mainContent {
+  width: 50%;
+  height: 80%;
+  order: 2;
+}
+
+#bodyContainer #rightContent,
+#bodyContainer #leftContent {
+  width: 25%;
+}
+
+#bodyContainer #rightContent,
+#bodyContainer #leftContent,
+#bodyContainer #mainContent {
+  background-color: rgba(10, 10, 15, 1);
+}
+
+#bodyContainer #rightContent {
+  order: 3;
+  height: 70vh;
+}
+
+#bodyContainer #leftContent {
+  order: 1;
+}
+
+#rightOne,
+#rightTwo,
+#rightThree,
+#leftOne {
+  height: 33%;
+  width: 100%;
+}
+
+#rightTwo,
+#rightThree {
+  border-top: 1px rgb(110, 110, 110, 0.5) solid;
+}
+
+#rightOne {
+  border-top: 1px rgb(110, 110, 110, 0.5) solid;
+}
+
+#rightThree {
+  border-bottom: 1px rgb(110, 110, 110, 0.5) solid;
+}
+
+#leftOne {
+  border-top: 1px rgb(110, 110, 110, 0.5) solid;
+  border-bottom: 1px rgb(110, 110, 110, 0.5) solid;
+  height: 70vh;
+}
+
+footer {
+  height: 7vh;
+
+  border-top: 1.5px rgb(28, 30, 40, 0.4) solid;
+  background-color: rgb(12, 12, 20, 1);
+
+  color: white;
+  font-weight: 500;
+  font-family: San Francisco;
+  text-align: center;
+  align-content: center;
 }
