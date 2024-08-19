@@ -57,8 +57,10 @@ svgDiv.el.addEventListener("click", () => {
   if (!isOpen) {
     endFrame();
     isOpen = true;
+    buttonDiv.el.style.animation = "menuDisappear 1s ease-in forwards";
   } else {
     startFrame();
     isOpen = false;
+    buttonDiv.el.style.animation = "menuBarAppear 1s ease-in forwards";
   }
 });
