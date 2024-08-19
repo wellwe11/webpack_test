@@ -12,28 +12,32 @@ body header {
   border-bottom: 1.5px rgb(28, 30, 40, 0.4) solid;
 
   height: 7vh;
+
+  text-align: center;
+  align-items: center;
+  color: white;
+  font-weight: 500;
+  font-size: large;
+  font-family: San Francisco;
 }
 
 header #iconDiv {
-  width: 3.7vh;
-  height: 3.7vh;
+  width: 4vh;
+  height: 4vh;
   background-color: rgb(10, 10, 15, 1);
 
+  align-content: center;
   align-self: center;
-  justify-self: start;
-
-  align-self: center;
-  justify-self: start;
 
   grid-column: 1;
   grid-row: 1;
 }
 
 header #svgDiv {
-  width: 3.7vh;
-  min-height: 3.7vh;
+  width: 3.3vh;
+  height: 3.3vh;
 
-  margin-left: 1vh;
+  margin-left: 1.8vh;
   cursor: pointer;
 }
 
@@ -47,8 +51,9 @@ body header button {
   font-weight: 500;
   font-family: San Francisco;
 
-  width: 8vh;
-  height: 3.2vh;
+  width: 30%;
+  height: 4vh;
+  font-size: medium;
 
   background: linear-gradient(
       to right,
@@ -75,10 +80,12 @@ header #buttonDiv {
   margin-left: -628px;
 
   width: 50%;
+  height: 55%;
 
   grid-column: 1;
   grid-row: 1;
   place-self: center;
+  align-items: center;
 
   border-right: 1px rgb(110, 110, 110, 0.7) solid;
 }

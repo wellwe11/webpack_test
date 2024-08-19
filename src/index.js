@@ -39,6 +39,7 @@ const CreateEl = (typeOfEl) => {
 
 export const mainHeader = CreateEl("header");
 mainHeader.appendTo(document.body);
+mainHeader.addText("The ultimate ToDo List");
 
 const buttonDiv = CreateEl("div");
 buttonDiv.appendTo(mainHeader.el);
@@ -116,11 +117,11 @@ const clickEvent = (event) => {
     if (!isOpen) {
       endFrame();
       isOpen = true;
-      buttonDiv.el.style.animation = "menuDisappear 0.4s ease forwards";
+      buttonDiv.el.style.animation = "menuDisappear 0.3s ease forwards";
     } else {
       startFrame();
       isOpen = false;
-      buttonDiv.el.style.animation = "menuBarAppear 0.4s ease forwards";
+      buttonDiv.el.style.animation = "menuBarAppear 0.3s ease forwards";
     }
   }
 };
@@ -132,8 +133,8 @@ buttonDiv.el.addEventListener("mouseleave", () => {
     setTimeout(() => {
       endFrame();
       isOpen = true;
-      buttonDiv.el.style.animation = "menuDisappear 0.4s ease forwards";
-    }, 200);
+      buttonDiv.el.style.animation = "menuDisappear 0.3s ease forwards";
+    }, 900);
   }
 });
 
