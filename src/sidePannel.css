@@ -11,8 +11,9 @@
   height: 70vh;
 }
 
-#newProjectButton {
+#createNewProjBtn {
 }
 
 #newProjectInput {
+  display: none;
 }

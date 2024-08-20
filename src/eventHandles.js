@@ -5,13 +5,16 @@ import {
   newProjBtn,
   newProjInput,
   bodyContainerCenter,
+  startNewProject,
 } from "./UI";
-import { addInput } from "./backbone";
+import { addInput, startNewProj, toggleVisibility } from "./backbone";
+import "./sidePannel.css";
 
 const { startFrame, endFrame } = loadAnimation();
 
 let isOpen = true;
 
+// open top left menu
 const clickEvent = (event) => {
   if (event.button === 0) {
     if (!isOpen) {
@@ -25,9 +28,9 @@ const clickEvent = (event) => {
     }
   }
 };
-
 svgDiv.el.addEventListener("mousedown", clickEvent);
 
+// mouse leave top left container
 buttonDiv.el.addEventListener("mouseleave", (event) => {
   if (!isOpen && event) {
     setTimeout(() => {
@@ -39,5 +42,11 @@ buttonDiv.el.addEventListener("mouseleave", (event) => {
 });
 
 newProjBtn.el.addEventListener("click", () => {
-  addInput(newProjInput.el, bodyContainerCenter.el);
+  startNewProj(newProjBtn.el);
+  toggleVisibility(newProjInput.el);
+  if (newProjInput.el.value) {
+    addInput(newProjInput.el, bodyContainerCenter.el);
+  } else {
+    console.log("please input value");
+  }
 });

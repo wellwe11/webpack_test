@@ -33,7 +33,7 @@ export const CreateChild = (elName, parentEl) => {
 };
 
 //stores general input in variable
-export const storeInput = (input) => {
+export const StoreInput = (input) => {
   let userInput = input.value;
   input.value = "";
   return userInput;
@@ -41,14 +41,31 @@ export const storeInput = (input) => {
 
 // extends storeInput & turns input to project/note
 export const addInput = (input, appendToEl) => {
-  if (input.value.length > 0) {
-    let name = storeInput(input);
-    const newChild = CreateChild(name, appendToEl);
-    return newChild;
+  let name = StoreInput(input);
+  const newChild = CreateChild(name, appendToEl);
+
+  return newChild;
+};
+
+// start new project & enable css attributes
+export const startNewProj = (element) => {
+  if (element.textContent !== "Add") {
+    element.textContent = "Add";
   } else {
-    console.log("please input text");
+    element.textContent = "Create new project";
   }
 };
+
+export const ShowInput = () => {
+  let isVisible = false;
+
+  return (element) => {
+    isVisible = !isVisible;
+    element.style.display = isVisible ? "block" : "none";
+  };
+};
+
+export const toggleVisibility = ShowInput();
 
 // function that creates a button that appends to parent
 // (this usecase is for creating buttons for the newProject)
@@ -67,8 +84,6 @@ export const addInput = (input, appendToEl) => {
 // ---- Edit project enables:
 // ----- Add note, delete project, change date
 //
-// A function that soley creates project, ties it to "mainContent"
-// A function that soley creates notes, and ties it to a parent (project)
 
 // left side-pannel contains buttons
 // button 1: create new project

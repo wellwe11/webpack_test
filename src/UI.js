@@ -41,8 +41,8 @@ leftContentOne.addId("leftOne");
 
 export const newProjBtn = CreateEl("button");
 newProjBtn.appendTo(leftContentOne.el);
-newProjBtn.addId("newProjectButton");
-newProjBtn.addText("Add new project");
+newProjBtn.addId("createNewProjBtn");
+newProjBtn.addText("Create new project");
 
 export const newProjInput = CreateEl("input");
 newProjInput.appendTo(leftContentOne.el);
