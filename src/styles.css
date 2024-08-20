@@ -69,7 +69,7 @@ body header button {
 
 body header button:hover {
   background-size: 0.1em 0, 0.1em 100%;
-  transition: all 0.25s ease-in-out;
+  transition: all 0.3s ease-in-out;
   background-color: rgb(90, 90, 90, 0.1);
 }
 
@@ -111,72 +111,6 @@ header #buttonDiv {
   100% {
     margin-left: -628px;
   }
-}
-
-#bodyContainer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  background-color: rgba(10, 10, 15, 1);
-
-  width: 100%;
-  height: 85vh;
-
-  padding: 5vh;
-}
-
-#bodyContainer #mainContent {
-  width: 50%;
-  height: 80%;
-  order: 2;
-}
-
-#bodyContainer #rightContent,
-#bodyContainer #leftContent {
-  width: 25%;
-}
-
-#bodyContainer #rightContent,
-#bodyContainer #leftContent,
-#bodyContainer #mainContent {
-  background-color: rgba(10, 10, 15, 1);
-}
-
-#bodyContainer #rightContent {
-  order: 3;
-  height: 70vh;
-}
-
-#bodyContainer #leftContent {
-  order: 1;
-}
-
-#rightOne,
-#rightTwo,
-#rightThree,
-#leftOne {
-  height: 33%;
-  width: 100%;
-}
-
-#rightTwo,
-#rightThree {
-  border-top: 1px rgb(110, 110, 110, 0.5) solid;
-}
-
-#rightOne {
-  border-top: 1px rgb(110, 110, 110, 0.5) solid;
-}
-
-#rightThree {
-  border-bottom: 1px rgb(110, 110, 110, 0.5) solid;
-}
-
-#leftOne {
-  border-top: 1px rgb(110, 110, 110, 0.5) solid;
-  border-bottom: 1px rgb(110, 110, 110, 0.5) solid;
-  height: 70vh;
 }
 
 footer {

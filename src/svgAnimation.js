@@ -1,6 +1,6 @@
 import animationData from "./menuIcon.json";
 import lottie from "lottie-web";
-import { svgDiv } from "./index.js";
+import { svgDiv } from "./UI";
 
 // svg animation
 export const loadAnimation = () => {
