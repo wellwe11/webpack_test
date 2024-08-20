@@ -23,13 +23,26 @@ export const CreateEl = (typeOfEl) => {
   return methods;
 };
 
-// extends CreateEl for projects and notes
+// extends CreateChild to add eventListener
+const eventToBind = (parentEl, name) => {
+  const childEl = CreateEl("Div").appendTo(parentEl).addText(`${name}'s child`);
+  return childEl;
+};
+
+// extends CreateEl for projects
 export const CreateChild = (elName, parentEl) => {
   const element = CreateEl("div")
     .addText(elName)
     .addId(`${elName}Div`)
     .appendTo(parentEl);
-  return element;
+
+  const elBtn = CreateEl("button").addText("Edit").appendTo(element.el);
+  elBtn.el.addEventListener("click", () => {
+    eventToBind(element.el, `${elName}'s child`);
+  });
+  return {
+    element,
+  };
 };
 
 //stores general input in variable
@@ -43,7 +56,6 @@ export const StoreInput = (input) => {
 export const addInput = (input, appendToEl) => {
   let name = StoreInput(input);
   const newChild = CreateChild(name, appendToEl);
-
   return newChild;
 };
 
@@ -64,8 +76,6 @@ export const ShowInput = () => {
     element.style.display = isVisible ? "block" : "none";
   };
 };
-
-export const toggleVisibility = ShowInput();
 
 // function that creates a button that appends to parent
 // (this usecase is for creating buttons for the newProject)

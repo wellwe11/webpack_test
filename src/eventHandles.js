@@ -7,7 +7,7 @@ import {
   bodyContainerCenter,
   startNewProject,
 } from "./UI";
-import { addInput, startNewProj, toggleVisibility } from "./backbone";
+import { addInput, startNewProj, ShowInput } from "./backbone";
 import "./sidePannel.css";
 
 const { startFrame, endFrame } = loadAnimation();
@@ -40,6 +40,8 @@ buttonDiv.el.addEventListener("mouseleave", (event) => {
     }, 400);
   }
 });
+
+export const toggleVisibility = ShowInput();
 
 newProjBtn.el.addEventListener("click", () => {
   startNewProj(newProjBtn.el);
