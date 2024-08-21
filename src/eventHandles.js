@@ -41,10 +41,10 @@ buttonDiv.el.addEventListener("mouseleave", (event) => {
   }
 });
 
-export const toggleVisibility = ShowInput();
+const toggleVisibility = ShowInput();
 
 newProjBtn.el.addEventListener("click", () => {
-  startNewProj(newProjBtn.el);
+  startNewProj(newProjBtn.el, "Add", "Start new project");
   toggleVisibility(newProjInput.el);
   if (newProjInput.el.value) {
     addInput(newProjInput.el, bodyContainerCenter.el);

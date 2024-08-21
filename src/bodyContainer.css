@@ -23,10 +23,12 @@
 }
 
 #mainContent * {
-  width: 200px;
-  height: 200px;
+  width: 100%;
+  height: 65px;
   background-color: wheat;
   color: black;
+
+  display: flex;
 }
 
 #mainContent * * {
@@ -34,6 +36,23 @@
   height: 50px;
 
   color: black;
+  background-color: aliceblue;
+}
+
+#addBtn,
+#delBtn,
+#changeBtn {
+  display: none;
+}
+
+#mainContent div[data-child] {
+  background-color: green;
+  width: 30%;
+  height: 3vh;
+}
+
+#mainContent * * {
+  width: 100%;
 }
 
 #mainContent button {

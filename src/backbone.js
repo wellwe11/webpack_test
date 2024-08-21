@@ -23,29 +23,91 @@ export const CreateEl = (typeOfEl) => {
   return methods;
 };
 
-// extends CreateChild to add eventListener
-const eventToBind = (parentEl, name) => {
-  const childEl = CreateEl("Div").appendTo(parentEl).addText(`${name}'s child`);
-  return childEl;
+// extends CreateEl for buttons
+const CreateBtn = (element, buttonText, id) => {
+  const elBtn = CreateEl("button")
+    .addText(buttonText)
+    .appendTo(element)
+    .addId(id);
+  return elBtn;
+};
+
+// toggles between block and none
+export const ShowInput = () => {
+  let isVisible = false;
+  return (...elements) => {
+    isVisible = !isVisible;
+    elements.forEach(
+      (element) => (element.style.display = isVisible ? "block" : "none")
+    );
+  };
+};
+
+// creates btns & bints to event
+const btnEvent = (element, name, noteEl, container) => {
+  //   const buttons = projBtns(element, name);
+  const btn = CreateBtn(element, "edit", `${name}Btn`);
+  const addNote = CreateBtn(element, "Add note", "addBtn");
+  const deleteProj = CreateBtn(element, "Delete project", "delBtn");
+  const changeDueDate = CreateBtn(element, "Change Date", "changeBtn");
+
+  const toggleVisibility = ShowInput();
+
+  btn.el.addEventListener("click", () => {
+    toggleVisibility(addNote.el, deleteProj.el, changeDueDate.el);
+  });
+  addNote.el.addEventListener("click", () => {
+    createNote(noteEl, `${name}'s child`);
+  });
+  deleteProj.el.addEventListener("click", () => {
+    container.remove();
+  });
+};
+
+const NewProjectDivs = (element) => {
+  const elLeft = CreateEl("div")
+    .appendTo(element)
+    .addText("Left")
+    .addId("projLeft");
+  const elCenter = CreateEl("div")
+    .appendTo(element)
+    .addText("Center")
+    .addId("projCenter");
+  const elRight = CreateEl("div")
+    .appendTo(element)
+    .addText("Right")
+    .addId("projRight");
+
+  return {
+    elLeft,
+    elCenter,
+    elRight,
+  };
 };
 
 // extends CreateEl for projects
 export const CreateChild = (elName, parentEl) => {
   const element = CreateEl("div")
     .addText(elName)
-    .addId(`${elName}Div`)
+    .addId(`${elName}`)
     .appendTo(parentEl);
 
-  const elBtn = CreateEl("button").addText("Edit").appendTo(element.el);
-  elBtn.el.addEventListener("click", () => {
-    eventToBind(element.el, `${elName}'s child`);
-  });
+  const container = NewProjectDivs(element.el);
+
+  btnEvent(container.elRight.el, elName, container.elLeft.el, element.el);
   return {
     element,
+    container,
   };
 };
 
-//stores general input in variable
+const createNote = (parentEl, id) => {
+  const note = CreateEl("div").appendTo(parentEl).addId(id).addText(`${id}`);
+  note.el.setAttribute("data-child", `child`);
+  return note;
+};
+
+// stores general input in variable
 export const StoreInput = (input) => {
   let userInput = input.value;
   input.value = "";
@@ -60,35 +122,19 @@ export const addInput = (input, appendToEl) => {
 };
 
 // start new project & enable css attributes
-export const startNewProj = (element) => {
-  if (element.textContent !== "Add") {
-    element.textContent = "Add";
+export const startNewProj = (element, add, newProj) => {
+  if (element.textContent !== add) {
+    element.textContent = add;
   } else {
-    element.textContent = "Create new project";
+    element.textContent = newProj;
   }
 };
-
-export const ShowInput = () => {
-  let isVisible = false;
-
-  return (element) => {
-    isVisible = !isVisible;
-    element.style.display = isVisible ? "block" : "none";
-  };
-};
-
-// function that creates a button that appends to parent
-// (this usecase is for creating buttons for the newProject)
-
-// export const createNewProject = () => {
-//     const project
-// }
 
 // Function for new projects
 // - Project contains notes, buttons
 // -- Notes contain:
 // ---- Title, date, edit button, summery of text
-// ----- edit button enables delete note, change text, change color
+// ----- edit note enables delete note, change text, change color
 // -- Project buttons are:
 // --- Edit project
 // ---- Edit project enables:
