@@ -3,9 +3,9 @@ import {
   svgDiv,
   buttonDiv,
   newProjBtn,
-  newProjInput,
+  newProjInputName,
   bodyContainerCenter,
-  startNewProject,
+  newProjectInputDate,
 } from "./UI";
 import { addInput, startNewProj, ShowInput } from "./backbone";
 import "./sidePannel.css";
@@ -45,9 +45,9 @@ const toggleVisibility = ShowInput();
 
 newProjBtn.el.addEventListener("click", () => {
   startNewProj(newProjBtn.el, "Add", "Start new project");
-  toggleVisibility(newProjInput.el);
-  if (newProjInput.el.value) {
-    addInput(newProjInput.el, bodyContainerCenter.el);
+  toggleVisibility(newProjInputName.el, newProjectInputDate.el);
+  if (newProjInputName.el.value) {
+    addInput(newProjInputName.el, bodyContainerCenter.el);
   } else {
     console.log("please input value");
   }

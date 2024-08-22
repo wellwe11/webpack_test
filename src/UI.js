@@ -1,66 +1,69 @@
 import { CreateEl } from "./backbone.js";
 
-export const mainHeader = CreateEl("header");
-mainHeader.appendTo(document.body);
-mainHeader.addText("The ultimate ToDo List");
+export const mainHeader = CreateEl("header")
+  .appendTo(document.body)
+  .addText("The ultimate ToDo List");
 
-export const buttonDiv = CreateEl("div");
-buttonDiv.appendTo(mainHeader.el);
-buttonDiv.addId("buttonDiv");
+export const buttonDiv = CreateEl("div")
+  .appendTo(mainHeader.el)
+  .addId("buttonDiv");
 
-const homeBtn = CreateEl("button");
-homeBtn.appendTo(buttonDiv.el);
-homeBtn.addText("Home");
+export const homeBtn = CreateEl("button")
+  .appendTo(buttonDiv.el)
+  .addText("Home");
 
-const infoBtn = CreateEl("button");
-infoBtn.appendTo(buttonDiv.el);
-infoBtn.addText("ToDo's");
+export const infoBtn = CreateEl("button")
+  .appendTo(buttonDiv.el)
+  .addText("ToDo's");
 
-const faqBtn = CreateEl("button");
-faqBtn.appendTo(buttonDiv.el);
-faqBtn.addText("Faq");
+export const faqBtn = CreateEl("button").appendTo(buttonDiv.el).addText("Faq");
 
 // main-body container
-const bodyContainer = CreateEl("div");
-bodyContainer.appendTo(document.body);
-bodyContainer.addId("bodyContainer");
+const bodyContainer = CreateEl("div")
+  .appendTo(document.body)
+  .addId("bodyContainer");
 
 // center container
-export const bodyContainerCenter = CreateEl("div");
-bodyContainerCenter.appendTo(bodyContainer.el);
-bodyContainerCenter.addId("mainContent");
+export const bodyContainerCenter = CreateEl("div")
+  .appendTo(bodyContainer.el)
+  .addId("mainContent");
 
 // left container
-const bodyContainerLeft = CreateEl("div");
-bodyContainerLeft.appendTo(bodyContainer.el);
-bodyContainerLeft.addId("leftContent");
+const bodyContainerLeft = CreateEl("div")
+  .appendTo(bodyContainer.el)
+  .addId("leftContent");
 
-const leftContentOne = CreateEl("div");
-leftContentOne.appendTo(bodyContainerLeft.el);
-leftContentOne.addId("leftOne");
+const leftContentOne = CreateEl("div")
+  .appendTo(bodyContainerLeft.el)
+  .addId("leftOne");
 
-export const newProjBtn = CreateEl("button");
-newProjBtn.appendTo(leftContentOne.el);
-newProjBtn.addId("createNewProjBtn");
-newProjBtn.addText("Create new project");
+const BtnInputProjContainer = CreateEl("span")
+  .appendTo(bodyContainerCenter.el)
+  .addId("BtnInputContainer");
 
-export const newProjInput = CreateEl("input");
-newProjInput.appendTo(leftContentOne.el);
-newProjInput.addId("newProjectInput");
+export const newProjBtn = CreateEl("button")
+  .appendTo(BtnInputProjContainer.el)
+  .addId("createNewProjBtn")
+  .addText("Create new project");
+
+export const newProjInputName = CreateEl("input")
+  .appendTo(BtnInputProjContainer.el)
+  .addId("newProjectInputName");
+
+export const newProjectInputDate = CreateEl("input")
+  .appendTo(BtnInputProjContainer.el)
+  .addId("newProjectInputDate");
+newProjectInputDate.el.setAttribute("type", "date");
 
 // left side-pannel contains buttons
 // button 1: create new project
 // button 2: today's notes
 // button 3: upcoming
 
-const footer = CreateEl("footer");
-footer.appendTo(document.body);
-footer.addText("Footer");
+export const footer = CreateEl("footer")
+  .appendTo(document.body)
+  .addText("Footer");
 
-export const iconDiv = CreateEl("div");
-iconDiv.appendTo(mainHeader.el);
-iconDiv.addId("iconDiv");
+export const iconDiv = CreateEl("div").appendTo(mainHeader.el).addId("iconDiv");
 
-export const svgDiv = CreateEl("div");
-svgDiv.appendTo(iconDiv.el);
-svgDiv.addId("svgDiv");
+export const svgDiv = CreateEl("div").appendTo(iconDiv.el).addId("svgDiv");

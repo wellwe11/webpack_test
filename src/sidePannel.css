@@ -10,10 +10,3 @@
   border-bottom: 1px rgb(110, 110, 110, 0.5) solid;
   height: 70vh;
 }
-
-#createNewProjBtn {
-}
-
-#newProjectInput {
-  display: none;
-}

@@ -3,40 +3,59 @@
   justify-content: space-between;
   align-items: center;
 
-  background-color: rgba(10, 10, 15, 1);
+  background-color: rgba(70, 70, 80, 0.2);
 
   width: 100%;
-  height: 85vh;
-
-  padding: 5vh;
+  height: 100%;
 }
 
 #bodyContainer #mainContent {
+  color: white;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto;
+
+  align-self: start;
+
   width: 75%;
-  height: 80%;
   order: 2;
+  margin-left: 10vh;
+  margin-top: 10vh;
 }
 
-#bodyContainer #leftContent,
-#bodyContainer #mainContent {
-  background-color: rgba(10, 10, 15, 1);
-}
-
-#mainContent * {
+#mainContent > div {
   width: 100%;
-  height: 65px;
-  background-color: wheat;
-  color: black;
+  background: linear-gradient(
+    to left,
+    rgba(70, 70, 80, 0),
+    rgba(70, 70, 80, 0.1)
+  );
 
-  display: flex;
+  border-top: 1px rgb(110, 110, 110, 0.5) solid;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2);
+  align-items: center;
+  margin-top: 3vh;
+  padding-top: 1%;
+  padding-bottom: 1%;
 }
 
 #mainContent * * {
-  width: 50px;
-  height: 50px;
+  color: white;
+  background-color: orange;
+}
 
-  color: black;
-  background-color: aliceblue;
+#projLeft,
+#projRight,
+#projCenter {
+  display: flex;
+  width: 80%;
+  height: 100%;
+  align-items: center;
+  justify-content: flex-start;
+  grid-row: 2;
 }
 
 #addBtn,
@@ -47,14 +66,47 @@
 
 #mainContent div[data-child] {
   background-color: green;
-  width: 30%;
-  height: 3vh;
+  width: 100%;
+
+  height: 100%;
+  margin-top: 1vh;
+
+  grid-column: 1 / -1;
+  border-top: 1px rgb(110, 110, 110, 0.5) solid;
+  border-bottom: 1px rgb(110, 110, 110, 0.5) solid;
+
+  display: flex;
+  align-items: center;
 }
 
-#mainContent * * {
-  width: 100%;
+#mainContent div[data-child] button {
+  height: 25px;
+}
+
+#mainContent div[data-child] * {
+  height: 90%;
+  margin-left: 1vh;
 }
 
 #mainContent button {
   background-color: red;
+  width: 40px;
+  height: 25px;
+}
+
+#newProjectInputName,
+#newProjectInputDate {
+  color: black;
+  width: 15%;
+  height: 100%;
+  display: none;
+}
+
+#newProjectInputTime {
+  background-color: red;
+}
+
+#BtnInputContainer {
+  display: flex;
+  grid-row: 20;
 }
