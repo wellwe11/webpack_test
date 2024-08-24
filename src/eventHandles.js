@@ -7,7 +7,7 @@ import {
   bodyContainerCenter,
   newProjectInputDate,
 } from "./UI";
-import { addInput, startNewProj, ShowInput } from "./backbone";
+import { addInput, startNewProj, ShowInput, addDate } from "./backbone";
 import "./sidePannel.css";
 
 const { startFrame, endFrame } = loadAnimation();
@@ -47,7 +47,11 @@ newProjBtn.el.addEventListener("click", () => {
   startNewProj(newProjBtn.el, "Add", "Start new project");
   toggleVisibility(newProjInputName.el, newProjectInputDate.el);
   if (newProjInputName.el.value) {
-    addInput(newProjInputName.el, bodyContainerCenter.el);
+    addInput(
+      newProjInputName.el,
+      newProjectInputDate.el,
+      bodyContainerCenter.el
+    );
   } else {
     console.log("please input value");
   }

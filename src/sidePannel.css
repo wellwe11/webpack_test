@@ -1,12 +1,40 @@
 #bodyContainer #leftContent {
+  display: flex;
+  margin-top: 3rem;
   width: 25%;
-  order: 1;
 }
 
 #leftOne {
-  height: 33%;
+  display: flex;
   width: 100%;
   border-top: 1px rgb(110, 110, 110, 0.5) solid;
   border-bottom: 1px rgb(110, 110, 110, 0.5) solid;
   height: 70vh;
+}
+
+#leftOne {
+  display: grid;
+  align-content: flex-start;
+  align-items: flex-start;
+  grid-template-columns: 100px, 100px, 100px;
+}
+
+#leftOne button {
+  height: 2rem;
+  width: 8rem;
+  grid-column: 1;
+}
+
+#leftOne input {
+  width: 7rem;
+  height: 2rem;
+}
+
+#leftOne #newProjectInputName {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+#leftOne #newProjectInputDate {
+  grid-column: 3;
 }

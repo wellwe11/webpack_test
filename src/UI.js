@@ -1,4 +1,4 @@
-import { CreateEl } from "./backbone.js";
+import { CreateEl, CreateElAttribute } from "./backbone.js";
 
 export const mainHeader = CreateEl("header")
   .appendTo(document.body)
@@ -42,18 +42,28 @@ const BtnInputProjContainer = CreateEl("span")
   .addId("BtnInputContainer");
 
 export const newProjBtn = CreateEl("button")
-  .appendTo(BtnInputProjContainer.el)
+  .appendTo(leftContentOne.el)
   .addId("createNewProjBtn")
-  .addText("Create new project");
+  .addText("+ Add task");
 
 export const newProjInputName = CreateEl("input")
-  .appendTo(BtnInputProjContainer.el)
+  .appendTo(leftContentOne.el)
   .addId("newProjectInputName");
 
-export const newProjectInputDate = CreateEl("input")
-  .appendTo(BtnInputProjContainer.el)
-  .addId("newProjectInputDate");
-newProjectInputDate.el.setAttribute("type", "date");
+export const newProjectInputDate = CreateElAttribute("input")
+  .appendTo(leftContentOne.el)
+  .addId("newProjectInputDate")
+  .addAttribute("type", "date");
+
+export const todayBtn = CreateEl("button")
+  .appendTo(leftContentOne.el)
+  .addId("todayBtn")
+  .addText("Today");
+
+export const upcomingBtn = CreateEl("button")
+  .appendTo(leftContentOne.el)
+  .addId("upcomingBtn")
+  .addText("Upcoming");
 
 // left side-pannel contains buttons
 // button 1: create new project

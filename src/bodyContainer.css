@@ -1,14 +1,3 @@
-#bodyContainer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  background-color: rgba(70, 70, 80, 0.2);
-
-  width: 100%;
-  height: 100%;
-}
-
 #bodyContainer #mainContent {
   color: white;
   display: grid;
@@ -34,9 +23,10 @@
   border-top: 1px rgb(110, 110, 110, 0.5) solid;
 
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2);
   align-items: center;
+  justify-items: flex-start;
   margin-top: 3vh;
   padding-top: 1%;
   padding-bottom: 1%;
@@ -48,14 +38,53 @@
 }
 
 #projLeft,
-#projRight,
-#projCenter {
+#projRight {
   display: flex;
-  width: 80%;
-  height: 100%;
+
   align-items: center;
-  justify-content: flex-start;
+  justify-items: flex-start;
   grid-row: 2;
+}
+
+[data-child="child"] #projLeft {
+  justify-content: flex-start;
+  width: 30%;
+}
+
+[data-child="child"] #projRight {
+  position: absolute;
+  width: 20%;
+  height: 25px;
+  margin-left: 40px;
+  background-color: green;
+  transition: 1 ease-in-out, transform 0.3s ease;
+  animation-direction: normal;
+}
+
+@keyframes childEditAppear {
+  0% {
+    margin-left: 40px;
+  }
+  100% {
+    margin-left: 120px;
+  }
+}
+
+@keyframes childEditDis {
+  0% {
+    margin-left: 120px;
+  }
+  100% {
+    margin-left: 40px;
+  }
+}
+
+#projLeft {
+  width: 95%;
+}
+
+#projRight {
+  width: 95%;
 }
 
 #addBtn,
@@ -64,19 +93,35 @@
   display: none;
 }
 
+#timeInput,
+#timeBtn,
+/* #timeBtnTwo, */
+#toDoInput {
+  display: none;
+}
+
+#toDoInput {
+  width: 40%;
+}
+
+#timeInput {
+  width: 20%;
+}
+
 #mainContent div[data-child] {
   background-color: green;
-  width: 100%;
+  width: 97.5%;
 
-  height: 100%;
   margin-top: 1vh;
 
   grid-column: 1 / -1;
   border-top: 1px rgb(110, 110, 110, 0.5) solid;
   border-bottom: 1px rgb(110, 110, 110, 0.5) solid;
 
-  display: flex;
-  align-items: center;
+  display: grid;
+  align-items: end;
+  grid-template-columns: 1;
+  grid-template-rows: 2;
 }
 
 #mainContent div[data-child] button {
@@ -84,8 +129,6 @@
 }
 
 #mainContent div[data-child] * {
-  height: 90%;
-  margin-left: 1vh;
 }
 
 #mainContent button {
@@ -97,8 +140,8 @@
 #newProjectInputName,
 #newProjectInputDate {
   color: black;
-  width: 15%;
-  height: 100%;
+  width: 30%;
+  height: 1.4rem;
   display: none;
 }
 
