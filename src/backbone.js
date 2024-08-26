@@ -1,4 +1,4 @@
-import { compareAsc, format } from "date-fns";
+import { format } from "date-fns";
 
 // create generic el
 export const CreateEl = (typeOfEl) => {
@@ -93,6 +93,7 @@ export const checkElements = (compareFn, showFn, hideFn, ...elements) => {
   });
 };
 
+// extends checkElements > enables grid on matching key
 export const checkDate = (element) => {
   const todayEl = format(new Date(), "yyyyMMdd");
   return {
@@ -101,10 +102,12 @@ export const checkDate = (element) => {
   };
 };
 
+// enable grid
 export const gridOn = (...elements) => {
   return elements.forEach((element) => (element.style.display = "grid"));
 };
 
+// disable grid
 export const gridOff = (...elements) => {
   return elements.forEach((element) => (element.style.display = "none"));
 };
@@ -132,8 +135,10 @@ const newProjBtns = (appendEl, name, containerEl) => {
     .addEvent("click", () => {
       toggleVisibility(deleteProj.el, changeDueDate.el);
       toggleInput(timeEl.el, ToDo.el);
+
       // createNote(`${name}'s child`, containerEl);
     });
+
   const deleteProj = CreateElEvent("button")
     .appendTo(appendEl)
     .addText("Delete project")
@@ -162,6 +167,8 @@ const newProjBtns = (appendEl, name, containerEl) => {
       createNote(`${timeEl.el.value} - ${ToDo.el.value}`, containerEl);
       timeEl.el.value = "";
       ToDo.el.value = "";
+      const allChildren = document.querySelectorAll('[data-child="child"]');
+      sortNames(...allChildren);
     }
   });
 
@@ -193,7 +200,6 @@ const newNotesBtns = (parentEl, name, container) => {
     .addId("clrBtn")
     .addEvent("click", () => console.log("hi"));
 
-  console.log(elRight);
   let isOpen = true;
 
   btn.el.addEventListener("click", () => {
@@ -227,22 +233,35 @@ export const CreateChildDivs = (elName, containerEl) => {
     container,
   };
 };
+const childEls = [];
 
 const createNote = (elName, parentEl) => {
-  const elNameClean = elName.replace(/btn|\s|-|\d+|:/g, "");
+  const elNameClean = elName.replace(/btn|\s|-|\d+|:/g, ""); // for child-animation
+  const elNameNumbers = elName.replace(/[a-zA-Z]|\s|-|:/g, ""); // plain numbers to help sort names
 
   const note = CreateElAttribute("div")
     .appendTo(parentEl)
-    .addId(`${elName}`)
-    .addText(`${elName}`)
-    .addAttribute("data-child", `child`);
+    .addAttribute("data-child", `child`)
+    .addId(elNameNumbers);
   const container = NewProjectDivs(note.el, elName);
   container.elRight.el.classList.add(elNameClean);
   newNotesBtns(container.elLeft.el, `${elName}btn`, note.el);
+  childEls.push(`${elNameNumbers} - ${elNameClean}`);
+  childEls.sort();
+  console.log(childEls);
 
   return {
     note,
   };
+};
+
+export const sortNames = (...elements) => {
+  elements.forEach((element, index) => {
+    const p = CreateEl("p");
+    element.appendChild(p.el);
+    p.el.textContent = childEls[index];
+    console.log(p);
+  });
 };
 
 // extends storeInput & turns input to project/note
@@ -274,7 +293,6 @@ export const addInput = (input, date, appendToEl) => {
 
 // addNote below project
 
-// Enforce adding project with date.
-// Enforce actual date in future. (dd/mm/yyyy)
-
-// if remove project, notes still in noteList array
+// make function to add time to note
+// add time to note
+// sort items by time in name

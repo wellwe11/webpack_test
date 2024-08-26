@@ -18,6 +18,7 @@ import {
   checkDate,
   gridOn,
   gridOff,
+  sortNames,
 } from "./backbone";
 import "./sidePannel.css";
 
@@ -54,6 +55,8 @@ buttonDiv.el.addEventListener("mouseleave", (event) => {
 
 const toggleVisibility = ShowInput();
 
+let whichDay;
+
 newProjTodayBtn.el.addEventListener("click", () => {
   startNewProj(newProjTodayBtn.el, "Add", "Start new project");
   toggleVisibility(newProjInputTodayName.el, newProjectTodayInputDate.el);
@@ -63,14 +66,23 @@ newProjTodayBtn.el.addEventListener("click", () => {
       newProjectTodayInputDate.el,
       bodyContainerCenter.el
     );
+
+    // enable/disable grid to match current tab active
+    if (whichDay === "today") {
+      todayBtn.el.click();
+    } else if (whichDay === "future") {
+      upcomingBtn.el.click();
+    } else {
+      allBtn.el.click();
+    }
   } else {
     console.log("please input value");
   }
 });
 
 todayBtn.el.addEventListener("click", () => {
+  whichDay = "today";
   const allChildren = document.querySelectorAll(".project");
-  // checkTodaysDate("grid", "none", ...allChildren);
   checkElements(
     (element) => checkDate(element)["==="],
     gridOn,
@@ -81,6 +93,7 @@ todayBtn.el.addEventListener("click", () => {
 });
 
 upcomingBtn.el.addEventListener("click", () => {
+  whichDay = "future";
   const allChildren = document.querySelectorAll(".project");
   checkElements(
     (element) => checkDate(element)[">"],
@@ -92,6 +105,7 @@ upcomingBtn.el.addEventListener("click", () => {
 });
 
 allBtn.el.addEventListener("click", () => {
+  whichDay = "all";
   const allChildren = document.querySelectorAll(".project");
   gridOn(...allChildren);
 });

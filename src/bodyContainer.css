@@ -128,7 +128,9 @@
   height: 25px;
 }
 
-#mainContent div[data-child] * {
+#mainContent div[data-child] p {
+  grid-row: 1;
+  grid-column: 1;
 }
 
 #mainContent button {

@@ -25,14 +25,17 @@
 
 #todayBtn {
   grid-column: 1;
+  grid-row: 2;
 }
 
 #upcomingBtn {
   grid-column: 1;
+  grid-row: 3;
 }
 
 #allBtn {
   grid-column: 1;
+  grid-row: 4;
 }
 
 #leftOne input {
