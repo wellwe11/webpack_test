@@ -3,21 +3,21 @@ import {
   svgDiv,
   buttonDiv,
   newProjTodayBtn,
-  newProjFutureBtn,
   bodyContainerCenter,
   newProjectTodayInputDate,
   newProjInputTodayName,
-  newProjectFutureInputDate,
-  newProjInputFutureName,
   todayBtn,
   upcomingBtn,
+  allBtn,
 } from "./UI";
 import {
   addInput,
   startNewProj,
   ShowInput,
-  checkTodaysDate,
-  checkUpComingDates,
+  checkElements,
+  checkDate,
+  gridOn,
+  gridOff,
 } from "./backbone";
 import "./sidePannel.css";
 
@@ -70,28 +70,28 @@ newProjTodayBtn.el.addEventListener("click", () => {
 
 todayBtn.el.addEventListener("click", () => {
   const allChildren = document.querySelectorAll(".project");
-  checkTodaysDate("grid", "none", ...allChildren);
+  // checkTodaysDate("grid", "none", ...allChildren);
+  checkElements(
+    (element) => checkDate(element)["==="],
+    gridOn,
+    gridOff,
+    ...allChildren
+  );
   console.log(...allChildren);
-  newProjTodayBtn.el.click();
-});
-
-newProjFutureBtn.el.addEventListener("click", () => {
-  startNewProj(newProjFutureBtn.el, "Add", "Start new project");
-  toggleVisibility(newProjInputFutureName.el, newProjectFutureInputDate.el);
-  if (newProjInputFutureName.el.value) {
-    addInput(
-      newProjInputFutureName.el,
-      newProjectFutureInputDate.el,
-      bodyContainerCenter.el
-    );
-  } else {
-    console.log("please input value");
-  }
 });
 
 upcomingBtn.el.addEventListener("click", () => {
   const allChildren = document.querySelectorAll(".project");
-  checkUpComingDates("grid", "none", ...allChildren);
+  checkElements(
+    (element) => checkDate(element)[">"],
+    gridOn,
+    gridOff,
+    ...allChildren
+  );
   console.log(...allChildren);
-  newProjFutureBtn.el.click();
+});
+
+allBtn.el.addEventListener("click", () => {
+  const allChildren = document.querySelectorAll(".project");
+  gridOn(...allChildren);
 });

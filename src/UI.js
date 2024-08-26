@@ -46,11 +46,6 @@ export const newProjTodayBtn = CreateEl("button")
   .addId("createNewProjTodayBtn")
   .addText("+ Add task");
 
-export const newProjFutureBtn = CreateEl("button")
-  .appendTo(leftContentOne.el)
-  .addId("createNewProjFutureBtn")
-  .addText("+ Add task");
-
 export const newProjInputTodayName = CreateEl("input")
   .appendTo(leftContentOne.el)
   .addId("newProjectInputTodayName");
@@ -58,15 +53,6 @@ export const newProjInputTodayName = CreateEl("input")
 export const newProjectTodayInputDate = CreateElAttribute("input")
   .appendTo(leftContentOne.el)
   .addId("newProjectInputTodayDate")
-  .addAttribute("type", "date");
-
-export const newProjInputFutureName = CreateEl("input") // fix this
-  .appendTo(leftContentOne.el)
-  .addId("newProjectFutureInputName");
-
-export const newProjectFutureInputDate = CreateElAttribute("input") // fix this
-  .appendTo(leftContentOne.el)
-  .addId("newProjectInputFutureDate")
   .addAttribute("type", "date");
 
 export const todayBtn = CreateEl("button")
@@ -78,6 +64,11 @@ export const upcomingBtn = CreateEl("button")
   .appendTo(leftContentOne.el)
   .addId("upcomingBtn")
   .addText("Upcoming");
+
+export const allBtn = CreateEl("button")
+  .appendTo(leftContentOne.el)
+  .addId("allBtn")
+  .addText("All");
 
 // left side-pannel contains buttons
 // button 1: create new project

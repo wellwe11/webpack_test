@@ -83,30 +83,30 @@ export const startNewProj = (element, add, newProj) => {
   }
 };
 
-export const checkTodaysDate = (displayOn, displayOff, ...elements) => {
-  const todayEl = format(new Date(), "MM/dd/yyyy");
+export const checkElements = (compareFn, showFn, hideFn, ...elements) => {
   elements.forEach((element) => {
-    if (element.id === todayEl) {
-      if (element.style.display === displayOff) {
-        element.style.display = displayOn;
-      }
+    if (compareFn(element)) {
+      showFn(element);
     } else {
-      element.style.display = displayOff;
+      hideFn(element);
     }
   });
 };
 
-export const checkUpComingDates = (displayOn, displayOff, ...elements) => {
-  const todayEl = format(new Date(), "MM/dd/yyyy");
-  elements.forEach((element) => {
-    if (element.id > todayEl) {
-      if (element.style.display === displayOff) {
-        element.style.display = displayOn;
-      }
-    } else {
-      element.style.display = displayOff;
-    }
-  });
+export const checkDate = (element) => {
+  const todayEl = format(new Date(), "yyyyMMdd");
+  return {
+    "===": element.id === todayEl,
+    ">": element.id > todayEl,
+  };
+};
+
+export const gridOn = (...elements) => {
+  return elements.forEach((element) => (element.style.display = "grid"));
+};
+
+export const gridOff = (...elements) => {
+  return elements.forEach((element) => (element.style.display = "none"));
 };
 
 // Adds buttons to >projects<
@@ -168,14 +168,11 @@ const newProjBtns = (appendEl, name, containerEl) => {
   return btn;
 };
 
-const noteNames = [];
-
 // add buttons to >notes<
 const newNotesBtns = (parentEl, name, container) => {
   const elRight = document.querySelector(
     `.${name.replace(/btn|\s|-|\d+|:/g, "")}`
   );
-  const index = noteNames.indexOf(elRight);
 
   const btn = CreateElEvent("button")
     .appendTo(parentEl)
@@ -187,7 +184,6 @@ const newNotesBtns = (parentEl, name, container) => {
     .addText("Delete project")
     .addId("delBtnTwo")
     .addEvent("click", () => {
-      noteNames.splice(index, 1);
       container.remove();
     });
 
@@ -234,42 +230,32 @@ export const CreateChildDivs = (elName, containerEl) => {
 
 const createNote = (elName, parentEl) => {
   const elNameClean = elName.replace(/btn|\s|-|\d+|:/g, "");
-  if (!noteNames.includes(elNameClean)) {
-    const note = CreateElAttribute("div")
-      .appendTo(parentEl)
-      .addId(`${elName}`)
-      .addText(`${elName}`)
-      .addAttribute("data-child", `child`);
-    const container = NewProjectDivs(note.el, elName);
-    container.elRight.el.classList.add(elNameClean);
-    newNotesBtns(container.elLeft.el, `${elName}btn`, note.el);
 
-    noteNames.push(elNameClean);
-    console.log(noteNames);
+  const note = CreateElAttribute("div")
+    .appendTo(parentEl)
+    .addId(`${elName}`)
+    .addText(`${elName}`)
+    .addAttribute("data-child", `child`);
+  const container = NewProjectDivs(note.el, elName);
+  container.elRight.el.classList.add(elNameClean);
+  newNotesBtns(container.elLeft.el, `${elName}btn`, note.el);
 
-    return {
-      note,
-    };
-  } else {
-    console.log("Please input new name");
-    console.log("name already exists:", projNames);
-  }
+  return {
+    note,
+  };
 };
-
-const projNames = [];
 
 // extends storeInput & turns input to project/note
 export const addInput = (input, date, appendToEl) => {
   let elName = StoreInput(input);
   let elDate = addDate(date);
-  projNames.push(elName);
+  const elDateClean = format(new Date(elDate), "yyyyMMdd"); // ALlow clean IDS & keeping projNames
   const newChild = CreateEl("div")
     .addText(`${elName} ${elDate}`)
-    .addId(elDate) // do not change
+    .addId(elDateClean) // do not change
     .appendTo(appendToEl);
   newChild.el.classList.add("project");
   CreateChildDivs(elName, newChild.el);
-  console.log(projNames);
   return newChild;
 };
 
