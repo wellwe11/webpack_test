@@ -28,9 +28,9 @@ export const CreateEl = (typeOfEl) => {
 export const addDate = (date) => {
   if (date.value === "") {
     const today = new Date();
-    return format(today, "- EEEE, MMMM do, yyyy");
+    return format(today, "MM/dd/yyyy");
   } else {
-    const otherDay = format(new Date(date.value), "EEEE, MMMM do, yyyy");
+    const otherDay = format(new Date(date.value), "MM/dd/yyyy");
     date.value = "";
     return otherDay;
   }
@@ -48,7 +48,7 @@ export const ShowInput = () => {
 };
 
 // adds addEvent() as chainable function (CreateElEvent > CreateEl)
-const CreateElEvent = (typeOfEl) => {
+export const CreateElEvent = (typeOfEl) => {
   const elObj = CreateEl(typeOfEl);
   elObj.addEvent = (eventType, eventHandler) => {
     elObj.el.addEventListener(eventType, eventHandler);
@@ -83,6 +83,32 @@ export const startNewProj = (element, add, newProj) => {
   }
 };
 
+export const checkTodaysDate = (displayOn, displayOff, ...elements) => {
+  const todayEl = format(new Date(), "MM/dd/yyyy");
+  elements.forEach((element) => {
+    if (element.id === todayEl) {
+      if (element.style.display === displayOff) {
+        element.style.display = displayOn;
+      }
+    } else {
+      element.style.display = displayOff;
+    }
+  });
+};
+
+export const checkUpComingDates = (displayOn, displayOff, ...elements) => {
+  const todayEl = format(new Date(), "MM/dd/yyyy");
+  elements.forEach((element) => {
+    if (element.id > todayEl) {
+      if (element.style.display === displayOff) {
+        element.style.display = displayOn;
+      }
+    } else {
+      element.style.display = displayOff;
+    }
+  });
+};
+
 // Adds buttons to >projects<
 const newProjBtns = (appendEl, name, containerEl) => {
   const toggleVisibility = ShowInput();
@@ -90,8 +116,8 @@ const newProjBtns = (appendEl, name, containerEl) => {
 
   const btn = CreateElEvent("button")
     .appendTo(appendEl)
-    .addText("edit")
     .addId(`${name}Btn`)
+    .addText("edit")
     .addEvent("click", () => {
       if (
         timeEl.el.style.display !== "block" &&
@@ -239,8 +265,9 @@ export const addInput = (input, date, appendToEl) => {
   projNames.push(elName);
   const newChild = CreateEl("div")
     .addText(`${elName} ${elDate}`)
-    .addId(elName) // do not change
+    .addId(elDate) // do not change
     .appendTo(appendToEl);
+  newChild.el.classList.add("project");
   CreateChildDivs(elName, newChild.el);
   console.log(projNames);
   return newChild;
@@ -263,3 +290,5 @@ export const addInput = (input, date, appendToEl) => {
 
 // Enforce adding project with date.
 // Enforce actual date in future. (dd/mm/yyyy)
+
+// if remove project, notes still in noteList array

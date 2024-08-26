@@ -5,23 +5,29 @@
 }
 
 #leftOne {
-  display: flex;
+  display: grid;
+  justify-content: start;
+  align-content: flex-start;
+  align-items: flex-start;
+  grid-template-columns: 100px, 100px, 100px;
+  grid-template-rows: 100px, 100px 100px 100px;
+
   width: 100%;
   border-top: 1px rgb(110, 110, 110, 0.5) solid;
   border-bottom: 1px rgb(110, 110, 110, 0.5) solid;
   height: 70vh;
 }
 
-#leftOne {
-  display: grid;
-  align-content: flex-start;
-  align-items: flex-start;
-  grid-template-columns: 100px, 100px, 100px;
-}
-
 #leftOne button {
   height: 2rem;
   width: 8rem;
+}
+
+#todayBtn {
+  grid-column: 1;
+}
+
+#upcomingBtn {
   grid-column: 1;
 }
 
@@ -30,11 +36,39 @@
   height: 2rem;
 }
 
-#leftOne #newProjectInputName {
+#createNewProjTodayBtn {
   grid-column: 2;
   grid-row: 1;
 }
 
-#leftOne #newProjectInputDate {
+#createNewProjFutureBtn {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+#newProjectInputTodayName {
   grid-column: 3;
+  grid-row: 1;
+}
+
+#newProjectInputTodayDate {
+  grid-column: 4;
+  grid-row: 1;
+}
+
+#newProjectFutureInputName {
+  grid-column: 3;
+  grid-row: 2;
+}
+
+#newProjectInputFutureDate {
+  grid-column: 4;
+  grid-row: 2;
+}
+
+#newProjectInputTodayName,
+#newProjectInputTodayDate,
+#newProjectFutureInputName,
+#newProjectInputFutureDate {
+  display: none;
 }

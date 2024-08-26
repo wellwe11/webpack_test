@@ -41,18 +41,32 @@ const BtnInputProjContainer = CreateEl("span")
   .appendTo(bodyContainerCenter.el)
   .addId("BtnInputContainer");
 
-export const newProjBtn = CreateEl("button")
+export const newProjTodayBtn = CreateEl("button")
   .appendTo(leftContentOne.el)
-  .addId("createNewProjBtn")
+  .addId("createNewProjTodayBtn")
   .addText("+ Add task");
 
-export const newProjInputName = CreateEl("input")
+export const newProjFutureBtn = CreateEl("button")
   .appendTo(leftContentOne.el)
-  .addId("newProjectInputName");
+  .addId("createNewProjFutureBtn")
+  .addText("+ Add task");
 
-export const newProjectInputDate = CreateElAttribute("input")
+export const newProjInputTodayName = CreateEl("input")
   .appendTo(leftContentOne.el)
-  .addId("newProjectInputDate")
+  .addId("newProjectInputTodayName");
+
+export const newProjectTodayInputDate = CreateElAttribute("input")
+  .appendTo(leftContentOne.el)
+  .addId("newProjectInputTodayDate")
+  .addAttribute("type", "date");
+
+export const newProjInputFutureName = CreateEl("input") // fix this
+  .appendTo(leftContentOne.el)
+  .addId("newProjectFutureInputName");
+
+export const newProjectFutureInputDate = CreateElAttribute("input") // fix this
+  .appendTo(leftContentOne.el)
+  .addId("newProjectInputFutureDate")
   .addAttribute("type", "date");
 
 export const todayBtn = CreateEl("button")
@@ -77,3 +91,5 @@ export const footer = CreateEl("footer")
 export const iconDiv = CreateEl("div").appendTo(mainHeader.el).addId("iconDiv");
 
 export const svgDiv = CreateEl("div").appendTo(iconDiv.el).addId("svgDiv");
+
+export const iconDivNote = CreateEl("div");
