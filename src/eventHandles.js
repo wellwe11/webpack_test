@@ -1,4 +1,5 @@
 import { loadAnimation } from "./svgAnimation";
+import { addInput } from "./projectBuildBlocks";
 import {
   svgDiv,
   buttonDiv,
@@ -11,14 +12,12 @@ import {
   allBtn,
 } from "./UI";
 import {
-  addInput,
-  startNewProj,
   ShowInput,
+  startNewProj,
+  gridOff,
+  gridOn,
   checkElements,
   checkDate,
-  gridOn,
-  gridOff,
-  sortNames,
 } from "./backbone";
 import "./sidePannel.css";
 

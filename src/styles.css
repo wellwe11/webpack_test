@@ -1,5 +1,5 @@
 body {
-  background-color: rgb(12, 12, 20, 1);
+  background-color: #f6f0e0;
 }
 
 body header {
@@ -7,7 +7,7 @@ body header {
   grid-template-columns: repeat(3, minmax(200px, 1fr));
 
   justify-content: center;
-  background-color: rgb(12, 12, 20, 1);
+  background-color: rgb(30, 30, 20, 1);
 
   border-bottom: 1.5px rgb(28, 30, 40, 0.4) solid;
 
@@ -22,9 +22,9 @@ body header {
 }
 
 header #iconDiv {
-  width: 4vh;
+  width: 5.3vh;
   height: 4vh;
-  background-color: rgb(10, 10, 15, 1);
+  background-color: rgb(30, 30, 20, 1);
 
   align-content: center;
   align-self: center;
@@ -43,7 +43,6 @@ header #svgDiv {
 
 body header button {
   color: white;
-  background-color: rgb(28, 30, 40, 0);
 
   border: none;
   cursor: pointer;
@@ -115,7 +114,6 @@ header #buttonDiv {
 
 #bodyContainer {
   display: flex;
-  background-color: rgba(70, 70, 80, 0.2);
 
   width: 100%;
   height: 100%;
@@ -125,7 +123,7 @@ footer {
   height: 7vh;
 
   border-top: 1.5px rgb(28, 30, 40, 0.4) solid;
-  background-color: rgb(12, 12, 20, 1);
+  background-color: rgb(30, 30, 20, 1);
 
   color: white;
   font-weight: 500;

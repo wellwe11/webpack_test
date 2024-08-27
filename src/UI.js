@@ -19,7 +19,7 @@ export const infoBtn = CreateEl("button")
 export const faqBtn = CreateEl("button").appendTo(buttonDiv.el).addText("Faq");
 
 // main-body container
-const bodyContainer = CreateEl("div")
+export const bodyContainer = CreateEl("div")
   .appendTo(document.body)
   .addId("bodyContainer");
 
@@ -29,15 +29,15 @@ export const bodyContainerCenter = CreateEl("div")
   .addId("mainContent");
 
 // left container
-const bodyContainerLeft = CreateEl("div")
+export const bodyContainerLeft = CreateEl("div")
   .appendTo(bodyContainer.el)
   .addId("leftContent");
 
-const leftContentOne = CreateEl("div")
+export const leftContentOne = CreateEl("div")
   .appendTo(bodyContainerLeft.el)
   .addId("leftOne");
 
-const BtnInputProjContainer = CreateEl("span")
+export const BtnInputProjContainer = CreateEl("span")
   .appendTo(bodyContainerCenter.el)
   .addId("BtnInputContainer");
 
@@ -69,11 +69,6 @@ export const allBtn = CreateEl("button")
   .appendTo(leftContentOne.el)
   .addId("allBtn")
   .addText("All");
-
-// left side-pannel contains buttons
-// button 1: create new project
-// button 2: today's notes
-// button 3: upcoming
 
 export const footer = CreateEl("footer")
   .appendTo(document.body)
