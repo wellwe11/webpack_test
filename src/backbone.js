@@ -25,6 +25,7 @@ export const CreateEl = (typeOfEl) => {
   return methods;
 };
 
+// add todays date if no date is entered (for new projs)
 export const addDate = (date) => {
   if (date.value === "") {
     const today = new Date();
@@ -83,6 +84,7 @@ export const startNewProj = (element, add, newProj) => {
   }
 };
 
+// compare with function to check value & apply boolean to each element
 export const checkElements = (compareFn, showFn, hideFn, ...elements) => {
   elements.forEach((element) => {
     if (compareFn(element)) {
@@ -97,8 +99,8 @@ export const checkElements = (compareFn, showFn, hideFn, ...elements) => {
 export const checkDate = (element) => {
   const todayEl = format(new Date(), "yyyyMMdd");
   return {
-    "===": element.id === todayEl,
-    ">": element.id > todayEl,
+    "===": element.id.replace(/^[0-9]/, "") === todayEl,
+    ">": element.id.replace(/^[0-9]/, "") > todayEl,
   };
 };
 
@@ -155,22 +157,23 @@ const newProjBtns = (appendEl, name, containerEl) => {
     .addId("timeInput")
     .addAttribute("type", "time");
 
-  const ToDo = CreateElAttribute("input").appendTo(appendEl).addId("toDoInput");
-
-  ToDo.el.addEventListener("keydown", (event) => {
-    if (
-      event.key === "Enter" &&
-      ToDo.el.value.length > 0 &&
-      timeEl.el.value.length > 0
-    ) {
-      toggleInput(timeEl.el, ToDo.el);
-      createNote(`${timeEl.el.value} - ${ToDo.el.value}`, containerEl);
-      timeEl.el.value = "";
-      ToDo.el.value = "";
-      const allChildren = document.querySelectorAll('[data-child="child"]');
-      sortNames(...allChildren);
-    }
-  });
+  const ToDo = CreateElEvent("input")
+    .appendTo(appendEl)
+    .addId("toDoInput")
+    .addEvent("keydown", (event) => {
+      if (
+        event.key === "Enter" &&
+        ToDo.el.value.length > 0 &&
+        timeEl.el.value.length > 0
+      ) {
+        toggleInput(timeEl.el, ToDo.el);
+        createNote(`${timeEl.el.value} - ${ToDo.el.value}`, containerEl);
+        timeEl.el.value = "";
+        ToDo.el.value = "";
+        const allChildren = document.querySelectorAll('[data-child="child"]');
+        sortNames(...allChildren);
+      }
+    });
 
   return btn;
 };
@@ -246,10 +249,11 @@ const createNote = (elName, parentEl) => {
   const container = NewProjectDivs(note.el, elName);
   container.elRight.el.classList.add(elNameClean);
   newNotesBtns(container.elLeft.el, `${elName}btn`, note.el);
-  childEls.push(`${elNameNumbers} - ${elNameClean}`);
+  childEls.push(
+    `${parentEl.id.replace(/^(.).*/, "$1")} - ${elNameNumbers} - ${elNameClean}`
+  );
   childEls.sort();
   console.log(childEls);
-
   return {
     note,
   };
@@ -264,18 +268,25 @@ export const sortNames = (...elements) => {
   });
 };
 
+let nr = 1;
+
 // extends storeInput & turns input to project/note
 export const addInput = (input, date, appendToEl) => {
+  let newNr = nr++;
   let elName = StoreInput(input);
   let elDate = addDate(date);
   const elDateClean = format(new Date(elDate), "yyyyMMdd"); // ALlow clean IDS & keeping projNames
   const newChild = CreateEl("div")
     .addText(`${elName} ${elDate}`)
-    .addId(elDateClean) // do not change
+    .addId(`${newNr}${elDateClean}`) // do not change
     .appendTo(appendToEl);
   newChild.el.classList.add("project");
   CreateChildDivs(elName, newChild.el);
-  return newChild;
+
+  return {
+    newChild,
+    newNr,
+  };
 };
 
 // Need to's:
