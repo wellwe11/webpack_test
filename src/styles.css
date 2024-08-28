@@ -15,8 +15,8 @@ body header {
 
   text-align: center;
   align-items: center;
-  color: white;
-  font-weight: 500;
+  color: #f6f0e0;
+  font-weight: 700;
   font-size: large;
   font-family: San Francisco;
 }
@@ -42,7 +42,7 @@ header #svgDiv {
 }
 
 body header button {
-  color: white;
+  color: #f6f0e0;
 
   border: none;
   cursor: pointer;
@@ -125,7 +125,7 @@ footer {
   border-top: 1.5px rgb(28, 30, 40, 0.4) solid;
   background-color: rgb(30, 30, 20, 1);
 
-  color: white;
+  color: #f6f0e0;
   font-weight: 500;
   font-family: San Francisco;
   text-align: center;

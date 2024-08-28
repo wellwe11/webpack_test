@@ -14,28 +14,30 @@ import {
 import {
   ShowInput,
   startNewProj,
-  gridOff,
   gridOn,
+  gridOff,
+  animateIcon,
   checkElements,
   checkDate,
+  toggleOn,
 } from "./backbone";
 import "./sidePannel.css";
 
 const { startFrame, endFrame } = loadAnimation();
 
-let isOpen = true;
+const isOpen = toggleOn();
 
 // open top left menu
 const clickEvent = (event) => {
   if (event.button === 0) {
-    if (!isOpen) {
+    if (!isOpen.getValue()) {
       endFrame();
-      isOpen = true;
-      buttonDiv.el.style.animation = "menuDisappear 0.3s ease forwards";
+      isOpen.turnTrue();
+      animateIcon(buttonDiv.el, isOpen.getValue());
     } else {
       startFrame();
-      isOpen = false;
-      buttonDiv.el.style.animation = "menuBarAppear 0.3s ease forwards";
+      isOpen.turnFalse();
+      animateIcon(buttonDiv.el, isOpen.getValue());
     }
   }
 };
@@ -43,11 +45,11 @@ svgDiv.el.addEventListener("mousedown", clickEvent);
 
 // mouse leave top left container
 buttonDiv.el.addEventListener("mouseleave", (event) => {
-  if (!isOpen && event) {
+  if (!isOpen.getValue() && event) {
     setTimeout(() => {
       endFrame();
-      isOpen = true;
-      buttonDiv.el.style.animation = "menuDisappear 0.3s ease forwards";
+      isOpen.turnTrue();
+      animateIcon(buttonDiv.el, isOpen.getValue());
     }, 400);
   }
 });
@@ -88,7 +90,6 @@ todayBtn.el.addEventListener("click", () => {
     gridOff,
     ...allChildren
   );
-  console.log(...allChildren);
 });
 
 upcomingBtn.el.addEventListener("click", () => {
@@ -100,7 +101,6 @@ upcomingBtn.el.addEventListener("click", () => {
     gridOff,
     ...allChildren
   );
-  console.log(...allChildren);
 });
 
 allBtn.el.addEventListener("click", () => {

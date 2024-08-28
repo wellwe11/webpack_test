@@ -1,5 +1,6 @@
 #bodyContainer #mainContent {
   color: white;
+  background-color: #f6f0e0;
   display: grid;
   grid-template-columns: auto;
   grid-template-rows: auto;
@@ -10,17 +11,11 @@
   order: 2;
   margin-left: 10vh;
   margin-top: 10vh;
+  color: black;
 }
 
 #mainContent > div {
   width: 100%;
-  background: linear-gradient(
-    to left,
-    rgba(70, 70, 80, 0),
-    rgba(70, 70, 80, 0.1)
-  );
-
-  border-top: 1px rgb(110, 110, 110, 0.5) solid;
 
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -32,9 +27,9 @@
   padding-bottom: 1%;
 }
 
-#mainContent * * {
-  color: white;
-  background-color: orange;
+.project {
+  font-size: larger;
+  font-weight: 500;
 }
 
 #projLeft,
@@ -56,7 +51,7 @@
   width: 20%;
   height: 25px;
   margin-left: 40px;
-  background-color: green;
+  background-color: #f6f0e0;
   transition: 1 ease-in-out, transform 0.3s ease;
   animation-direction: normal;
 }
@@ -109,7 +104,7 @@
 }
 
 #mainContent div[data-child] {
-  background-color: green;
+  background-color: #f6f0e0;
   width: 97.5%;
 
   margin-top: 1vh;
@@ -131,6 +126,8 @@
 #mainContent div[data-child] p {
   grid-row: 1;
   grid-column: 1;
+  font-size: medium;
+  font-weight: 200;
 }
 
 #mainContent button {

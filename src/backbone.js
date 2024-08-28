@@ -69,6 +69,29 @@ export const CreateElAttribute = (typeOfEl) => {
   return element;
 };
 
+// encapsulate on/off to not directly add logic to events
+export const toggleOn = () => {
+  let el = true;
+
+  const methods = {
+    turnFalse: () => {
+      el = false;
+      return;
+    },
+
+    turnTrue: () => {
+      el = true;
+      return;
+    },
+
+    getValue: () => {
+      return el;
+    },
+    el,
+  };
+  return methods;
+};
+
 // stores general input in variable and cleans input
 export const StoreInput = (input) => {
   let userInput = input.value;
@@ -144,12 +167,39 @@ export const CreateChildDivs = (elName, containerEl) => {
   };
 };
 
+// sort names depending on array length & adds p to each
 export const sortNames = (...elements) => {
   elements.forEach((element, index) => {
     const p = CreateEl("p");
     element.appendChild(p.el);
     p.el.textContent = childEls[index];
   });
+};
+
+// add animation
+export const addAnimation = (element, toDo) => {
+  return (element.style.animation = toDo);
+};
+
+// animate top-left buttons
+export const animateIcon = (element, isTrue) => {
+  if (isTrue) {
+    const el = addAnimation(element, "menuDisappear 0.3s ease forwards");
+    return el;
+  } else {
+    const el = addAnimation(element, "menuBarAppear 0.3s ease forwards");
+    return el;
+  }
+};
+
+export const animateNoteDiv = (element, isTrue) => {
+  if (isTrue) {
+    const el = addAnimation(element, "childEditAppear 0.3s ease forwards");
+    return el;
+  } else {
+    const el = addAnimation(element, "childEditDis 0.3s ease forwards");
+    return el;
+  }
 };
 
 // Need to's:

@@ -10,10 +10,10 @@ import {
   NewProjectDivs,
   CreateChildDivs,
   sortNames,
+  toggleOn,
+  animateNoteDiv,
 } from "./backbone";
 import { format } from "date-fns";
-
-let nr = 1;
 
 // array to store notes (sort() will sort them by time (early > late))
 export let childEls = CreateArray();
@@ -87,12 +87,6 @@ export const newNotesBtns = (parentEl, name, containerEl) => {
     `.${name.replace(/btn|\s|-|\d+|:/g, "")}`
   );
 
-  console.log("name replaced:", name.replace(/btn|\s|-|\d+|:/g, ""));
-  console.log("name:", name);
-  console.log("parentEl", parentEl);
-  console.log("containerEl", containerEl);
-  console.log("containerEl ID:", containerEl.id);
-
   const btn = CreateElEvent("button")
     .appendTo(parentEl)
     .addText("edit")
@@ -116,15 +110,14 @@ export const newNotesBtns = (parentEl, name, containerEl) => {
     .addId("clrBtn")
     .addEvent("click", () => console.log("hi"));
 
-  let isOpen = true;
-
+  let isOpen = toggleOn();
   btn.el.addEventListener("click", () => {
-    if (!isOpen) {
-      elRight.style.animation = "childEditDis 0.3s ease forwards";
-      isOpen = true;
+    if (!isOpen.getValue()) {
+      animateNoteDiv(elRight, isOpen.getValue());
+      isOpen.turnTrue();
     } else {
-      elRight.style.animation = "childEditAppear 0.3s ease forwards";
-      isOpen = false;
+      animateNoteDiv(elRight, isOpen.getValue());
+      isOpen.turnFalse();
     }
   });
 
@@ -140,9 +133,6 @@ export const createNote = (elName, parentEl) => {
       `${parentElFirstDigit} - ${elNameNumbers} - ${elNameClean}`
     )
   ) {
-    console.log(elName);
-    console.log(`${parentEl.id} ${elNameNumbers}`);
-
     const note = CreateElAttribute("div")
       .appendTo(parentEl)
       .addAttribute("data-child", `child`)
@@ -164,21 +154,22 @@ export const createNote = (elName, parentEl) => {
   }
 };
 
+// n value will be first letter in id for projects
+let n = 0;
 // extends storeInput & turns input to project/note
 export const addInput = (input, date, appendToEl) => {
-  let newNr = nr++;
+  n++;
   let elName = StoreInput(input);
   let elDate = addDate(date);
   const elDateClean = format(new Date(elDate), "yyyyMMdd"); // ALlow clean IDS & keeping projNames
   const newChild = CreateEl("div")
     .addText(`${elName} ${elDate}`)
-    .addId(`${newNr}${elDateClean}`) // do not change
+    .addId(`${n}${elDateClean}`) // do not change
     .appendTo(appendToEl);
   newChild.el.classList.add("project");
   CreateChildDivs(elName, newChild.el);
 
   return {
     newChild,
-    newNr,
   };
 };

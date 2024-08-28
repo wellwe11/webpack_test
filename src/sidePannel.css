@@ -1,69 +1,58 @@
 #bodyContainer #leftContent {
   display: flex;
+
   margin-top: 3rem;
   width: 25%;
 }
 
 #leftOne {
-  display: grid;
-  justify-content: start;
-
   width: 100%;
   border-top: 1px rgb(110, 110, 110, 0.5) solid;
   border-bottom: 1px rgb(110, 110, 110, 0.5) solid;
-  height: 22%;
+  align-content: start;
 }
 
 #leftOne button {
   height: 2rem;
   background-color: #f6f0e0;
   border: none;
-  width: 290%;
+  width: 100%;
   cursor: pointer;
 
   text-align: start;
-
-  border-top: 1px rgb(110, 110, 110, 0.5) solid;
-  margin-top: 1%;
 }
 
 #leftOne button:focus {
-  background-color: #fdf7e7;
+  background: linear-gradient(to right, #ffffff, #f6f0e0);
 }
 
 #todayBtn {
-  grid-column: 1;
-  grid-row: 2;
 }
 
 #upcomingBtn {
-  grid-column: 1;
-  grid-row: 3;
 }
 
 #allBtn {
-  grid-column: 1;
-  grid-row: 4;
 }
 
 #leftOne input {
   width: 7rem;
-  height: 2rem;
+  height: 1.8rem;
+  position: absolute;
+  margin-top: -30px;
+  border: none;
+  background-color: #f6f0e0;
 }
 
 #createNewProjTodayBtn {
-  grid-column: 1;
-  grid-row: 1;
 }
 
 #newProjectInputTodayName {
-  grid-column: 3;
-  grid-row: 1;
+  margin-left: 80px;
 }
 
 #newProjectInputTodayDate {
-  grid-column: 4;
-  grid-row: 1;
+  margin-left: 200px;
 }
 
 #newProjectInputTodayName,
