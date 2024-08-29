@@ -11,7 +11,7 @@ import {
   CreateChildDivs,
   sortNames,
   toggleOn,
-  animateNoteDiv,
+  addAnimate,
 } from "./backbone";
 import { format } from "date-fns";
 
@@ -74,6 +74,7 @@ export const newProjBtns = (appendEl, name, containerEl) => {
         ToDo.el.value = "";
         const allChildren = document.querySelectorAll('[data-child="child"]');
         sortNames(...allChildren);
+        console.log(...allChildren);
       }
     });
 
@@ -95,14 +96,16 @@ export const newNotesBtns = (parentEl, name, containerEl) => {
   const deleteProj = CreateElEvent("button")
     .appendTo(parentEl)
     .addText("Delete project")
-    .addId("delBtnTwo")
-    .addEvent("click", () => {
-      const allChildren = document.querySelectorAll('[data-child="child"] p');
-      childEls = childEls.filter((element) =>
-        allChildren.forEach((child) => element !== child)
-      );
-      containerEl.remove();
-    });
+    .addId("delBtnTwo");
+
+  deleteProj.el.addEventListener("click", () => {
+    let text = containerEl.querySelector("p");
+    console.log(text.textContent);
+    childEls = childEls.filter((el) => el !== text.textContent);
+
+    console.log("new:", childEls);
+    containerEl.remove();
+  });
 
   const changeColor = CreateElEvent("button")
     .appendTo(parentEl)
@@ -113,10 +116,14 @@ export const newNotesBtns = (parentEl, name, containerEl) => {
   let isOpen = toggleOn();
   btn.el.addEventListener("click", () => {
     if (!isOpen.getValue()) {
-      animateNoteDiv(elRight, isOpen.getValue());
+      addAnimate(elRight, isOpen.getValue(), "childEditDis 0.3s ease forwards");
       isOpen.turnTrue();
     } else {
-      animateNoteDiv(elRight, isOpen.getValue());
+      addAnimate(
+        elRight,
+        isOpen.getValue(),
+        "childEditAppear 0.3s ease forwards"
+      );
       isOpen.turnFalse();
     }
   });

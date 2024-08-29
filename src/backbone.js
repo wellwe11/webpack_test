@@ -50,8 +50,8 @@ export const ShowInput = () => {
 };
 
 // adds addEvent() as chainable function (CreateElEvent > CreateEl)
-export const CreateElEvent = (typeOfEl) => {
-  const elObj = CreateEl(typeOfEl);
+export const CreateElEvent = (...typeOfEls) => {
+  const elObj = CreateEl(...typeOfEls);
   elObj.addEvent = (eventType, eventHandler) => {
     elObj.el.addEventListener(eventType, eventHandler);
     return elObj;
@@ -145,7 +145,7 @@ export const pushToArray = (array, ...elements) => {
 
 // encapsulates array
 export const CreateArray = () => {
-  return [];
+  return [].sort();
 };
 
 // add left, center, right container to parent
@@ -170,34 +170,30 @@ export const CreateChildDivs = (elName, containerEl) => {
 // sort names depending on array length & adds p to each
 export const sortNames = (...elements) => {
   elements.forEach((element, index) => {
-    const p = CreateEl("p");
-    element.appendChild(p.el);
-    p.el.textContent = childEls[index];
+    if (!element.querySelector("p")) {
+      let p = CreateEl("p");
+      element.appendChild(p.el);
+      p.el.textContent = childEls[index];
+      return p.el;
+    } else {
+      element.querySelector("p").textContent = childEls[index];
+    }
   });
+  console.log(childEls);
 };
 
 // add animation
-export const addAnimation = (element, toDo) => {
+export const CreateAnimate = (element, toDo) => {
   return (element.style.animation = toDo);
 };
 
 // animate top-left buttons
-export const animateIcon = (element, isTrue) => {
+export const addAnimate = (element, isTrue, animation) => {
   if (isTrue) {
-    const el = addAnimation(element, "menuDisappear 0.3s ease forwards");
+    const el = CreateAnimate(element, animation);
     return el;
   } else {
-    const el = addAnimation(element, "menuBarAppear 0.3s ease forwards");
-    return el;
-  }
-};
-
-export const animateNoteDiv = (element, isTrue) => {
-  if (isTrue) {
-    const el = addAnimation(element, "childEditAppear 0.3s ease forwards");
-    return el;
-  } else {
-    const el = addAnimation(element, "childEditDis 0.3s ease forwards");
+    const el = CreateAnimate(element, animation);
     return el;
   }
 };

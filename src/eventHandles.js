@@ -16,7 +16,7 @@ import {
   startNewProj,
   gridOn,
   gridOff,
-  animateIcon,
+  addAnimate,
   checkElements,
   checkDate,
   toggleOn,
@@ -33,11 +33,19 @@ const clickEvent = (event) => {
     if (!isOpen.getValue()) {
       endFrame();
       isOpen.turnTrue();
-      animateIcon(buttonDiv.el, isOpen.getValue());
+      addAnimate(
+        buttonDiv.el,
+        isOpen.getValue(),
+        "menuDisappear 0.3s ease forwards"
+      );
     } else {
       startFrame();
       isOpen.turnFalse();
-      animateIcon(buttonDiv.el, isOpen.getValue());
+      addAnimate(
+        buttonDiv.el,
+        isOpen.getValue(),
+        "menuBarAppear 0.3s ease forwards"
+      );
     }
   }
 };
@@ -49,7 +57,11 @@ buttonDiv.el.addEventListener("mouseleave", (event) => {
     setTimeout(() => {
       endFrame();
       isOpen.turnTrue();
-      animateIcon(buttonDiv.el, isOpen.getValue());
+      addAnimate(
+        buttonDiv.el,
+        isOpen.getValue(),
+        "menuDisappear 0.3s ease forwards"
+      );
     }, 400);
   }
 });
