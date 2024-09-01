@@ -1,5 +1,7 @@
 body {
   background-color: #f6f0e0;
+
+  font-family: Heiti SC;
 }
 
 body header {
@@ -18,7 +20,6 @@ body header {
   color: #f6f0e0;
   font-weight: 700;
   font-size: large;
-  font-family: San Francisco;
 }
 
 header #iconDiv {
@@ -48,11 +49,10 @@ body header button {
   cursor: pointer;
 
   font-weight: 500;
-  font-family: San Francisco;
 
   width: 30%;
   height: 4vh;
-  font-size: medium;
+  font-size: small;
 
   background: linear-gradient(
       to right,
@@ -127,7 +127,7 @@ footer {
 
   color: #f6f0e0;
   font-weight: 500;
-  font-family: San Francisco;
+
   text-align: center;
   align-content: center;
 }

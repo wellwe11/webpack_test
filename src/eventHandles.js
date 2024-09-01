@@ -26,6 +26,7 @@ import "./sidePannel.css";
 const { startFrame, endFrame } = loadAnimation();
 
 const isOpen = toggleOn();
+const inputOpen = toggleOn();
 
 // open top left menu
 const clickEvent = (event) => {
@@ -66,13 +67,10 @@ buttonDiv.el.addEventListener("mouseleave", (event) => {
   }
 });
 
-const toggleVisibility = ShowInput();
-
 let whichDay;
 
 newProjTodayBtn.el.addEventListener("click", () => {
-  startNewProj(newProjTodayBtn.el, "Add", "Start new project");
-  toggleVisibility(newProjInputTodayName.el, newProjectTodayInputDate.el);
+  startNewProj(newProjTodayBtn.el, "Add", "Add project");
   if (newProjInputTodayName.el.value) {
     addInput(
       newProjInputTodayName.el,
@@ -90,6 +88,34 @@ newProjTodayBtn.el.addEventListener("click", () => {
     }
   } else {
     console.log("please input value");
+  }
+
+  if (inputOpen.getValue()) {
+    addAnimate(
+      newProjInputTodayName.el,
+      inputOpen.getValue(),
+      "addProjAppear 0.3s ease forwards"
+    );
+
+    addAnimate(
+      newProjectTodayInputDate.el,
+      inputOpen.getValue(),
+      "addProjAppearDate 0.3s ease forwards"
+    );
+    inputOpen.turnFalse();
+  } else {
+    addAnimate(
+      newProjInputTodayName.el,
+      inputOpen.getValue(),
+      "addProjDis 0.3s ease forwards"
+    );
+
+    addAnimate(
+      newProjectTodayInputDate.el,
+      inputOpen.getValue(),
+      "addProjDisDate 0.3s ease forwards"
+    );
+    inputOpen.turnTrue();
   }
 });
 

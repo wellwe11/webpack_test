@@ -44,7 +44,7 @@ export const BtnInputProjContainer = CreateEl("span")
 export const newProjTodayBtn = CreateEl("button")
   .appendTo(leftContentOne.el)
   .addId("createNewProjTodayBtn")
-  .addText("+ Add task");
+  .addText("Add project");
 
 export const newProjInputTodayName = CreateEl("input")
   .appendTo(leftContentOne.el)

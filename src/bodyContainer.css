@@ -32,6 +32,19 @@
   font-weight: 500;
 }
 
+.project > #projRight {
+  display: block;
+  height: 26px;
+  width: 20%;
+  position: absolute;
+  align-self: self-start;
+  margin-top: 19px;
+  margin-left: 40px;
+  background-color: #f6f0e0;
+  transition: 1 ease-in-out, transform 0.3s ease;
+  animation-direction: normal;
+}
+
 #projLeft,
 #projRight {
   display: flex;
@@ -74,6 +87,33 @@
   }
 }
 
+@keyframes childEditExtend {
+  0% {
+    margin-left: 120px;
+  }
+  100% {
+    margin-left: 370px;
+  }
+}
+
+@keyframes childEditCollapse {
+  0% {
+    margin-left: 270px;
+  }
+  100% {
+    margin-left: 120px;
+  }
+}
+
+@keyframes childElReset {
+  0% {
+    margin-left: 270px;
+  }
+  100% {
+    margin-left: 40px;
+  }
+}
+
 #projLeft {
   width: 95%;
 }
@@ -85,7 +125,6 @@
 #addBtn,
 #delBtn,
 #changeBtn {
-  display: none;
 }
 
 #timeInput,
@@ -110,13 +149,16 @@
   margin-top: 1vh;
 
   grid-column: 1 / -1;
-  border-top: 1px rgb(110, 110, 110, 0.5) solid;
+
   border-bottom: 1px rgb(110, 110, 110, 0.5) solid;
 
   display: grid;
   align-items: end;
   grid-template-columns: 1;
   grid-template-rows: 2;
+}
+
+#mainContent .project {
 }
 
 #mainContent div[data-child] button {

@@ -200,19 +200,5 @@ export const addAnimate = (element, isTrue, animation) => {
 
 // Need to's:
 
-// Add sidebar buttons:
-// -- >!todays events!<
-// --- add functionality to get todays date, and display matching events
-// ----- example:
-// ----- const todaysDate = someFunctionToGetDate
-// ----- if (project.date ==== todaysDate)
-// ----- display projects.
-// ------ make todays projects default
-// -- >!upcoming events!<
-// --- display all projects in order (closest dates first)
-
-// addNote below project
-
-// make function to add time to note
-// add time to note
-// sort items by time in name
+// fix:
+// on new projects: add-note sometimes actives delete & change note button too

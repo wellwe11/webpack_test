@@ -20,39 +20,67 @@ export let childEls = CreateArray();
 
 // Adds buttons to >projects<
 export const newProjBtns = (appendEl, name, containerEl) => {
-  const toggleVisibility = ShowInput();
-  const toggleInput = ShowInput();
+  const elRightID = document.getElementById(`${containerEl.id}`);
+  const elRight = elRightID.querySelector(`#projRight`);
 
+  console.log(elRightID);
+  console.log(elRight);
+
+  const toggleInput = ShowInput();
+  let isOpen = toggleOn();
   const btn = CreateElEvent("button")
     .appendTo(appendEl)
     .addId(`${name}Btn`)
     .addText("edit")
     .addEvent("click", () => {
-      if (
-        timeEl.el.style.display !== "block" &&
-        ToDo.el.style.display !== "block"
-      )
-        toggleVisibility(addNote.el, deleteProj.el, changeDueDate.el);
+      if (!isOpen.getValue()) {
+        deleteProj.el.style.display = "block";
+        addAnimate(
+          elRight,
+          isOpen.getValue(),
+          "childEditDis 0.3s ease forwards"
+        );
+        isOpen.turnTrue();
+      } else {
+        addAnimate(
+          elRight,
+          isOpen.getValue(),
+          "childEditAppear 0.3s ease forwards"
+        );
+        isOpen.turnFalse();
+      }
+      // toggleVisibility(deleteProj.el, changeDueDate.el);
     });
   const addNote = CreateElEvent("button")
     .appendTo(appendEl)
-    .addText("Add note")
+    .addText("+note")
     .addId("addBtn")
     .addEvent("click", () => {
-      toggleVisibility(deleteProj.el, changeDueDate.el);
+      deleteProj.el.style.display = "none";
       toggleInput(timeEl.el, ToDo.el);
+      if (!isOpen.getValue()) {
+        addAnimate(
+          elRight,
+          isOpen.getValue(),
+          "childEditExtend 0.3s ease forwards"
+        );
+        isOpen.turnTrue();
+      } else {
+        addAnimate(
+          elRight,
+          isOpen.getValue(),
+          "childEditCollapse 0.3s ease forwards"
+        );
+        deleteProj.el.style.display = "block";
+        isOpen.turnFalse();
+      }
     });
 
   const deleteProj = CreateElEvent("button")
     .appendTo(appendEl)
-    .addText("Delete project")
+    .addText("Delete")
     .addId("delBtn")
     .addEvent("click", () => containerEl.remove());
-
-  const changeDueDate = CreateElEvent("button")
-    .appendTo(appendEl)
-    .addText("Change Date")
-    .addId("changeBtn");
 
   const timeEl = CreateElAttribute("input")
     .appendTo(appendEl)
@@ -68,6 +96,13 @@ export const newProjBtns = (appendEl, name, containerEl) => {
         ToDo.el.value.length > 0 &&
         timeEl.el.value.length > 0
       ) {
+        addNote.el.style.display = "block";
+        deleteProj.el.style.display = "block";
+        addAnimate(
+          elRight,
+          isOpen.getValue(),
+          "childElReset 0.3s ease forwards"
+        );
         createNote(`${timeEl.el.value} - ${ToDo.el.value}`, containerEl);
         toggleInput(timeEl.el, ToDo.el);
         timeEl.el.value = "";
@@ -87,6 +122,7 @@ export const newNotesBtns = (parentEl, name, containerEl) => {
   const elRight = elRightID.querySelector(
     `.${name.replace(/btn|\s|-|\d+|:/g, "")}`
   );
+  let isOpen = toggleOn();
 
   const btn = CreateElEvent("button")
     .appendTo(parentEl)
@@ -95,7 +131,7 @@ export const newNotesBtns = (parentEl, name, containerEl) => {
 
   const deleteProj = CreateElEvent("button")
     .appendTo(parentEl)
-    .addText("Delete project")
+    .addText("Delete")
     .addId("delBtnTwo");
 
   deleteProj.el.addEventListener("click", () => {
@@ -109,11 +145,10 @@ export const newNotesBtns = (parentEl, name, containerEl) => {
 
   const changeColor = CreateElEvent("button")
     .appendTo(parentEl)
-    .addText("Change color")
+    .addText("ClrChange")
     .addId("clrBtn")
     .addEvent("click", () => console.log("hi"));
 
-  let isOpen = toggleOn();
   btn.el.addEventListener("click", () => {
     if (!isOpen.getValue()) {
       addAnimate(elRight, isOpen.getValue(), "childEditDis 0.3s ease forwards");
@@ -144,7 +179,7 @@ export const createNote = (elName, parentEl) => {
       .appendTo(parentEl)
       .addAttribute("data-child", `child`)
       .addId(`${parentEl.id} - ${elNameNumbers}`);
-    const container = NewProjectDivs(note.el, elName);
+    const container = NewProjectDivs(note.el);
     container.elRight.el.classList.add(elNameClean);
     newNotesBtns(container.elLeft.el, `${elName}btn`, note.el);
     pushToArray(
