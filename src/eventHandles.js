@@ -12,7 +12,6 @@ import {
   allBtn,
 } from "./UI";
 import {
-  ShowInput,
   startNewProj,
   gridOn,
   gridOff,
@@ -20,6 +19,7 @@ import {
   checkElements,
   checkDate,
   toggleOn,
+  CreateArray,
 } from "./backbone";
 import "./sidePannel.css";
 
@@ -94,26 +94,26 @@ newProjTodayBtn.el.addEventListener("click", () => {
     addAnimate(
       newProjInputTodayName.el,
       inputOpen.getValue(),
-      "addProjAppear 0.3s ease forwards"
+      "addProjAppear ease 0.18s forwards"
     );
 
     addAnimate(
       newProjectTodayInputDate.el,
       inputOpen.getValue(),
-      "addProjAppearDate 0.3s ease forwards"
+      "addProjAppearDate ease 0.18s forwards"
     );
     inputOpen.turnFalse();
   } else {
     addAnimate(
       newProjInputTodayName.el,
       inputOpen.getValue(),
-      "addProjDis 0.3s ease forwards"
+      "addProjDis 0.2s ease forwards"
     );
 
     addAnimate(
       newProjectTodayInputDate.el,
       inputOpen.getValue(),
-      "addProjDisDate 0.3s ease forwards"
+      "addProjDisDate 0.2s ease forwards"
     );
     inputOpen.turnTrue();
   }
@@ -141,8 +141,29 @@ upcomingBtn.el.addEventListener("click", () => {
   );
 });
 
+let projectArr = CreateArray();
+
 allBtn.el.addEventListener("click", () => {
   whichDay = "all";
   const allChildren = document.querySelectorAll(".project");
-  gridOn(...allChildren);
+  // gridOn(...allChildren);
+
+  checkElements(
+    (element) => checkDate(element)["<"],
+    gridOn,
+    gridOff,
+    ...allChildren
+  );
+
+  const compareFn = (a, b) => {
+    return a.id.slice(1, 9) - b.id.slice(1, 9);
+  };
+
+  let lastChild = allChildren[allChildren.length - 1];
+  projectArr.push(lastChild);
+  projectArr.sort(compareFn);
+  projectArr.forEach((child, index) => (child.style.gridRow = index + 1));
+  console.log(projectArr);
+
+  return;
 });

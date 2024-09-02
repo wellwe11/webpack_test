@@ -29,13 +29,13 @@
 }
 
 #leftOne input {
+  padding: 2px;
   height: 1.4rem;
   margin-top: 0.3rem;
   position: absolute;
   visibility: visible;
   border: none;
 
-  padding: 3px;
   font-size: small;
 
   background: linear-gradient(
@@ -65,7 +65,7 @@
 }
 
 #leftOne #newProjectInputTodayName {
-  margin-left: -14.5rem;
+  margin-left: -14.7rem;
   width: 0.2rem;
 }
 
@@ -100,7 +100,7 @@
 
 @keyframes addProjAppearDate {
   0% {
-    margin-left: -14.5rem;
+    margin-left: -14.7rem;
     width: 0.2rem;
   }
 
@@ -113,13 +113,11 @@
 @keyframes addProjDisDate {
   0% {
     margin-left: -11.5rem;
-    /* visibility: visible; */
     width: 7rem;
   }
 
   100% {
-    margin-left: -14.5rem;
-    /* visibility: hidden; */
+    margin-left: -14.7rem;
     width: 0.2rem;
   }
 }

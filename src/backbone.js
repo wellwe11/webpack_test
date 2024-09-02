@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { format, addYears } from "date-fns";
 import { newProjBtns, childEls } from "./projectBuildBlocks";
 
 // create generic el
@@ -122,9 +122,12 @@ export const checkElements = (compareFn, showFn, hideFn, ...elements) => {
 // extends checkElements > enables grid on matching key
 export const checkDate = (element) => {
   const todayEl = format(new Date(), "yyyyMMdd");
+  const futureDate = addYears(new Date(), 100);
+  const formattedFuture = format(futureDate, "yyyyMMdd");
   return {
     "===": element.id.replace(/^[0-9]/, "") === todayEl,
     ">": element.id.replace(/^[0-9]/, "") > todayEl,
+    "<": element.id.replace(/^[0-9]/, "") < formattedFuture,
   };
 };
 
@@ -139,8 +142,12 @@ export const gridOff = (...elements) => {
 };
 
 export const pushToArray = (array, ...elements) => {
-  array.push(...elements);
-  return array;
+  if ([...elements]) {
+    array.push(...elements);
+    return array;
+  } else {
+    console.log("no elements found");
+  }
 };
 
 // encapsulates array
@@ -200,5 +207,4 @@ export const addAnimate = (element, isTrue, animation) => {
 
 // Need to's:
 
-// fix:
 // on new projects: add-note sometimes actives delete & change note button too

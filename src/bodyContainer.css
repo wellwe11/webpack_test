@@ -10,7 +10,7 @@
   width: 75%;
   order: 2;
   margin-left: 10vh;
-  margin-top: 10vh;
+  margin-top: 2vh;
   color: black;
 }
 
@@ -18,8 +18,8 @@
   width: 100%;
 
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2);
+  grid-template-columns: repeat(auto, 1fr);
+  grid-template-rows: repeat(auto);
   align-items: center;
   justify-items: flex-start;
   margin-top: 3vh;
@@ -115,7 +115,7 @@
 }
 
 #projLeft {
-  width: 95%;
+  width: 55%;
 }
 
 #projRight {
@@ -154,11 +154,13 @@
 
   display: grid;
   align-items: end;
-  grid-template-columns: 1;
-  grid-template-rows: 2;
+  grid-template-columns: auto;
+  grid-template-rows: auto;
 }
 
 #mainContent .project {
+  grid-column: 1;
+  height: auto;
 }
 
 #mainContent div[data-child] button {
@@ -170,6 +172,11 @@
   grid-column: 1;
   font-size: medium;
   font-weight: 200;
+  margin-left: -10px;
+}
+
+#mainContent div[data-child] p::first-letter {
+  color: transparent;
 }
 
 #mainContent button {
