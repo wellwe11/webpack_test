@@ -15,6 +15,10 @@ import {
 } from "./backbone";
 import { format } from "date-fns";
 
+import plusIcon from "./Icons/plusIcon.png";
+import deleteIcon from "./icons/deleteIcon.png";
+import editIcon from "./icons/editIcon.png";
+
 // array to store notes (sort() will sort them by time (early > late))
 export let childEls = CreateArray();
 
@@ -33,10 +37,9 @@ export const newProjBtns = (appendEl, name, containerEl) => {
   const btn = CreateElEvent("button")
     .appendTo(appendEl)
     .addId(`${name}Btn`)
-    .addText("edit")
     .addEvent("click", () => {
       if (!isOpen.getValue()) {
-        deleteProj.el.style.display = "block";
+        deleteProj.style.display = "flex";
         addAnimate(
           elRight,
           isOpen.getValue(),
@@ -55,12 +58,11 @@ export const newProjBtns = (appendEl, name, containerEl) => {
 
   const addNote = CreateElEvent("button")
     .appendTo(appendEl)
-    .addText("+note")
     .addId("addBtn")
     .addEvent("click", () => {
-      deleteProj.el.style.display = "none";
-      toggleInput(timeEl.el, ToDo.el);
+      toggleInput(timeEl, ToDo);
       if (!isOpen.getValue()) {
+        deleteProj.style.display = "none";
         addAnimate(
           elRight,
           isOpen.getValue(),
@@ -68,15 +70,18 @@ export const newProjBtns = (appendEl, name, containerEl) => {
         );
         isOpen.turnTrue();
       } else {
-        addAnimate(elRight, isOpen.getValue(), "childEditCollapse");
-        deleteProj.el.style.display = "block";
+        addAnimate(
+          elRight,
+          isOpen.getValue(),
+          "childEditCollapse 0.3s ease forwards"
+        );
+        deleteProj.style.display = "flex";
         isOpen.turnFalse();
       }
     });
 
   const deleteProj = CreateElEvent("button")
     .appendTo(appendEl)
-    .addText("Delete")
     .addId("delBtn")
     .addEvent("click", () => containerEl.remove());
 
@@ -91,25 +96,37 @@ export const newProjBtns = (appendEl, name, containerEl) => {
     .addEvent("keydown", (event) => {
       if (
         event.key === "Enter" &&
-        ToDo.el.value.length > 0 &&
-        timeEl.el.value.length > 0
+        ToDo.value.length > 0 &&
+        timeEl.value.length > 0
       ) {
-        addNote.el.style.display = "block";
-        deleteProj.el.style.display = "block";
+        addNote.style.display = "flex";
+        deleteProj.style.display = "flex";
         addAnimate(
           elRight,
           isOpen.getValue(),
           "childElReset 0.3s ease forwards"
         );
-        createNote(`${timeEl.el.value} - ${ToDo.el.value}`, containerEl);
-        toggleInput(timeEl.el, ToDo.el);
-        timeEl.el.value = "";
-        ToDo.el.value = "";
+        createNote(`${timeEl.value} - ${ToDo.value}`, containerEl);
+        toggleInput(timeEl, ToDo);
+        timeEl.value = "";
+        ToDo.value = "";
         const allChildren = document.querySelectorAll('[data-child="child"]');
         sortNames(...allChildren);
         console.log(...allChildren);
       }
     });
+
+  const plusIconEl = CreateEl("img").appendTo(addNote).addId("plusBtnIcon");
+  plusIconEl.src = plusIcon;
+  plusIconEl.alt = "Plus Icon";
+
+  const delIconEl = CreateEl("img").appendTo(deleteProj).addId("delBtnIcon");
+  delIconEl.src = deleteIcon;
+  delIconEl.alt = "Delete Icon";
+
+  const editIconEl = CreateEl("img").appendTo(btn).addId("editBtnEl");
+  editIconEl.src = editIcon;
+  editIconEl.alt = "Edit icon";
 
   return btn;
 };
@@ -132,7 +149,7 @@ export const newNotesBtns = (parentEl, name, containerEl) => {
     .addText("Delete")
     .addId("delBtnTwo");
 
-  deleteProj.el.addEventListener("click", () => {
+  deleteProj.addEventListener("click", () => {
     let text = containerEl.querySelector("p");
     console.log(text.textContent);
     childEls = childEls.filter((el) => el !== text.textContent);
@@ -147,7 +164,7 @@ export const newNotesBtns = (parentEl, name, containerEl) => {
     .addId("clrBtn")
     .addEvent("click", () => console.log("hi"));
 
-  btn.el.addEventListener("click", () => {
+  btn.addEventListener("click", () => {
     if (!isOpen.getValue()) {
       addAnimate(elRight, isOpen.getValue(), "childEditDis 0.3s ease forwards");
       isOpen.turnTrue();
@@ -167,6 +184,7 @@ export const newNotesBtns = (parentEl, name, containerEl) => {
 export const createNote = (elName, parentEl) => {
   const elNameClean = elName.replace(/btn|\s|-|\d+|:/g, ""); // for child-animation
   const elNameNumbers = elName.replace(/[a-zA-Z]|\s|-/g, ""); // plain numbers to help sort names
+  console.log(parentEl);
   const parentElFirstDigit = parentEl.id.replace(/^(.).*/, "$1");
   if (
     !childEls.includes(
@@ -181,9 +199,9 @@ export const createNote = (elName, parentEl) => {
       .addAttribute("data-child", `child`)
       .addId(`${parentEl.id} - ${elNameNumbers}`);
 
-    const container = NewProjectDivs(note.el);
-    container.elRight.el.classList.add(elNameClean);
-    newNotesBtns(container.elLeft.el, `${elName}btn`, note.el);
+    const container = NewProjectDivs(note);
+    container.elRight.classList.add(elNameClean);
+    newNotesBtns(container.elLeft, `${elName}btn`, note);
     pushToArray(
       childEls,
       `${parentElFirstDigit}${elNameNumbers} - ${elNameClean}`
@@ -220,8 +238,8 @@ export const addInput = (input, date, appendToEl) => {
     .addText(`${titleDate} - ${elName}`)
     .addId(`${n}${elDateClean}`) // do not change
     .appendTo(appendToEl);
-  newChild.el.classList.add("project");
-  CreateChildDivs(elName, newChild.el);
+  newChild.classList.add("project");
+  CreateChildDivs(elName, newChild);
 
   return {
     newChild,

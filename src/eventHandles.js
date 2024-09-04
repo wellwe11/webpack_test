@@ -20,6 +20,9 @@ import {
   checkDate,
   toggleOn,
   CreateArray,
+  compareFnChildren,
+  getLastChild,
+  sortProjects,
 } from "./backbone";
 import "./sidePannel.css";
 
@@ -35,7 +38,7 @@ const clickEvent = (event) => {
       endFrame();
       isOpen.turnTrue();
       addAnimate(
-        buttonDiv.el,
+        buttonDiv,
         isOpen.getValue(),
         "menuDisappear 0.3s ease forwards"
       );
@@ -43,23 +46,23 @@ const clickEvent = (event) => {
       startFrame();
       isOpen.turnFalse();
       addAnimate(
-        buttonDiv.el,
+        buttonDiv,
         isOpen.getValue(),
         "menuBarAppear 0.3s ease forwards"
       );
     }
   }
 };
-svgDiv.el.addEventListener("mousedown", clickEvent);
+svgDiv.addEventListener("mousedown", clickEvent);
 
 // mouse leave top left container
-buttonDiv.el.addEventListener("mouseleave", (event) => {
+buttonDiv.addEventListener("mouseleave", (event) => {
   if (!isOpen.getValue() && event) {
     setTimeout(() => {
       endFrame();
       isOpen.turnTrue();
       addAnimate(
-        buttonDiv.el,
+        buttonDiv,
         isOpen.getValue(),
         "menuDisappear 0.3s ease forwards"
       );
@@ -69,22 +72,22 @@ buttonDiv.el.addEventListener("mouseleave", (event) => {
 
 let whichDay;
 
-newProjTodayBtn.el.addEventListener("click", () => {
-  startNewProj(newProjTodayBtn.el, "Add", "Add project");
-  if (newProjInputTodayName.el.value) {
+newProjTodayBtn.addEventListener("click", () => {
+  startNewProj(newProjTodayBtn, "Add", "Add project");
+  if (newProjInputTodayName.value) {
     addInput(
-      newProjInputTodayName.el,
-      newProjectTodayInputDate.el,
-      bodyContainerCenter.el
+      newProjInputTodayName,
+      newProjectTodayInputDate,
+      bodyContainerCenter
     );
 
     // enable/disable grid to match current tab active
     if (whichDay === "today") {
-      todayBtn.el.click();
+      todayBtn.click();
     } else if (whichDay === "future") {
-      upcomingBtn.el.click();
+      upcomingBtn.click();
     } else {
-      allBtn.el.click();
+      allBtn.click();
     }
   } else {
     console.log("please input value");
@@ -92,26 +95,26 @@ newProjTodayBtn.el.addEventListener("click", () => {
 
   if (inputOpen.getValue()) {
     addAnimate(
-      newProjInputTodayName.el,
+      newProjInputTodayName,
       inputOpen.getValue(),
       "addProjAppear ease 0.18s forwards"
     );
 
     addAnimate(
-      newProjectTodayInputDate.el,
+      newProjectTodayInputDate,
       inputOpen.getValue(),
       "addProjAppearDate ease 0.18s forwards"
     );
     inputOpen.turnFalse();
   } else {
     addAnimate(
-      newProjInputTodayName.el,
+      newProjInputTodayName,
       inputOpen.getValue(),
       "addProjDis 0.2s ease forwards"
     );
 
     addAnimate(
-      newProjectTodayInputDate.el,
+      newProjectTodayInputDate,
       inputOpen.getValue(),
       "addProjDisDate 0.2s ease forwards"
     );
@@ -119,7 +122,7 @@ newProjTodayBtn.el.addEventListener("click", () => {
   }
 });
 
-todayBtn.el.addEventListener("click", () => {
+todayBtn.addEventListener("click", () => {
   whichDay = "today";
   const allChildren = document.querySelectorAll(".project");
   checkElements(
@@ -130,7 +133,7 @@ todayBtn.el.addEventListener("click", () => {
   );
 });
 
-upcomingBtn.el.addEventListener("click", () => {
+upcomingBtn.addEventListener("click", () => {
   whichDay = "future";
   const allChildren = document.querySelectorAll(".project");
   checkElements(
@@ -143,27 +146,19 @@ upcomingBtn.el.addEventListener("click", () => {
 
 let projectArr = CreateArray();
 
-allBtn.el.addEventListener("click", () => {
+allBtn.addEventListener("click", () => {
   whichDay = "all";
   const allChildren = document.querySelectorAll(".project");
-  // gridOn(...allChildren);
-
   checkElements(
     (element) => checkDate(element)["<"],
     gridOn,
     gridOff,
     ...allChildren
   );
-
-  const compareFn = (a, b) => {
-    return a.id.slice(1, 9) - b.id.slice(1, 9);
-  };
-
-  let lastChild = allChildren[allChildren.length - 1];
-  projectArr.push(lastChild);
-  projectArr.sort(compareFn);
-  projectArr.forEach((child, index) => (child.style.gridRow = index + 1));
+  sortProjects(projectArr, ...allChildren);
+  projectArr.sort(compareFnChildren);
   console.log(projectArr);
+  projectArr.forEach((child, index) => (child.style.gridRow = index + 1));
 
   return;
 });

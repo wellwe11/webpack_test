@@ -59,6 +59,26 @@
   width: 30%;
 }
 
+#addBtn,
+#delBtn,
+#mainContent button {
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+#plusBtnIcon {
+  height: 20px;
+}
+
+#delBtnIcon {
+  height: 20px;
+}
+
+#editBtnEl {
+  height: 20px;
+}
+
 [data-child="child"] #projRight {
   position: absolute;
   width: 20%;
@@ -120,11 +140,6 @@
 
 #projRight {
   width: 95%;
-}
-
-#addBtn,
-#delBtn,
-#changeBtn {
 }
 
 #timeInput,

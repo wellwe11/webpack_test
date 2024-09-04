@@ -3,27 +3,24 @@ import { newProjBtns, childEls } from "./projectBuildBlocks";
 
 // create generic el
 export const CreateEl = (typeOfEl) => {
-  const el = document.createElement(typeOfEl);
+  const element = document.createElement(typeOfEl);
 
-  const methods = {
-    addText: (text) => {
-      el.textContent = text;
-      return methods;
-    },
-
-    appendTo: (parentEl) => {
-      parentEl.appendChild(el);
-      return methods;
-    },
-
-    addId: (newId) => {
-      el.id = newId;
-      return methods;
-    },
-    el,
+  element.addText = function (text) {
+    this.textContent = text;
+    return this;
   };
 
-  return methods;
+  element.appendTo = function (parentEl) {
+    parentEl.appendChild(this);
+    return this;
+  };
+
+  element.addId = function (newId) {
+    this.id = newId;
+    return this;
+  };
+
+  return element;
 };
 
 // add todays date if no date is entered (for new projs)
@@ -53,7 +50,7 @@ export const ShowInput = () => {
 export const CreateElEvent = (...typeOfEls) => {
   const elObj = CreateEl(...typeOfEls);
   elObj.addEvent = (eventType, eventHandler) => {
-    elObj.el.addEventListener(eventType, eventHandler);
+    elObj.addEventListener(eventType, eventHandler);
     return elObj;
   };
   return elObj;
@@ -63,7 +60,7 @@ export const CreateElEvent = (...typeOfEls) => {
 export const CreateElAttribute = (typeOfEl) => {
   const element = CreateEl(typeOfEl);
   element.addAttribute = (type, name) => {
-    element.el.setAttribute(type, name);
+    element.setAttribute(type, name);
     return element;
   };
   return element;
@@ -168,7 +165,7 @@ export const NewProjectDivs = (parentEl) => {
 // extends CreateEl for projects
 export const CreateChildDivs = (elName, containerEl) => {
   const container = NewProjectDivs(containerEl, elName);
-  newProjBtns(container.elLeft.el, elName, containerEl);
+  newProjBtns(container.elLeft, elName, containerEl);
   return {
     container,
   };
@@ -179,9 +176,9 @@ export const sortNames = (...elements) => {
   elements.forEach((element, index) => {
     if (!element.querySelector("p")) {
       let p = CreateEl("p");
-      element.appendChild(p.el);
-      p.el.textContent = childEls[index];
-      return p.el;
+      element.appendChild(p);
+      p.textContent = childEls[index];
+      return p;
     } else {
       element.querySelector("p").textContent = childEls[index];
     }
@@ -205,6 +202,31 @@ export const addAnimate = (element, isTrue, animation) => {
   }
 };
 
-// Need to's:
+// adds to sort() with a > b
+export const compareFn = (a, b) => {
+  return a - b;
+};
 
-// on new projects: add-note sometimes actives delete & change note button too
+// specifies compareFn for allBtn.el usecase
+export const compareFnChildren = (a, b) => {
+  return compareFn(a.id.slice(1, 9), b.id.slice(1, 9));
+};
+
+// returns last element in array each time it updates
+export const getLastChild = (...array) => {
+  return array[array.length - 1];
+};
+
+// sort projects by date (before > after)
+export const sortProjects = (array, ...projects) => {
+  if (array.length > 0) {
+    let lastChild = getLastChild(...projects);
+    array.push(lastChild);
+  } else if (array.length === 0) {
+    projects.forEach((project) => array.push(project));
+    return;
+  }
+};
+
+// add title inside body-container (center
+// - title represents section, for example: Today, Upcoming, All
