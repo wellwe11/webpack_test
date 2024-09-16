@@ -12,12 +12,20 @@ import {
   sortNames,
   toggleOn,
   addAnimate,
+  populateStorage,
+  itemArray,
+  populateChildren,
+  getFirstNumber,
+  getId,
+  childrenArray,
+  returnId,
 } from "./backbone";
 import { format } from "date-fns";
 
 import plusIcon from "./Icons/plusIcon.png";
 import deleteIcon from "./icons/deleteIcon.png";
 import editIcon from "./icons/editIcon.png";
+import { allBtn } from "./UI";
 
 // array to store notes (sort() will sort them by time (early > late))
 export let childEls = CreateArray();
@@ -28,9 +36,6 @@ export let dates = CreateArray();
 export const newProjBtns = (appendEl, name, containerEl) => {
   const elRightID = document.getElementById(`${containerEl.id}`);
   const elRight = elRightID.querySelector(`#projRight`);
-
-  console.log(elRightID);
-  console.log(elRight);
 
   const toggleInput = ShowInput();
   let isOpen = toggleOn();
@@ -83,7 +88,30 @@ export const newProjBtns = (appendEl, name, containerEl) => {
   const deleteProj = CreateElEvent("button")
     .appendTo(appendEl)
     .addId("delBtn")
-    .addEvent("click", () => containerEl.remove());
+    .addEvent("click", () => {
+      containerEl.remove();
+
+      let items = JSON.parse(localStorage.getItem("items"));
+
+      // removes item from itemArray
+      itemArray.forEach((item, index) => {
+        if (item.id === containerEl.id) {
+          itemArray.splice(index, 1);
+        }
+      });
+
+      // removes item from localStorage
+      for (let i = 0; items.length; i++) {
+        if (items[i].id == containerEl.id) {
+          items.splice(i, 1);
+          break;
+        }
+      }
+
+      // "re-shapes" storage with updated items
+      items = JSON.stringify(items);
+      localStorage.setItem("items", items);
+    });
 
   const timeEl = CreateElAttribute("input")
     .appendTo(appendEl)
@@ -104,7 +132,7 @@ export const newProjBtns = (appendEl, name, containerEl) => {
         addAnimate(
           elRight,
           isOpen.getValue(),
-          "childElReset 0.3s ease forwards"
+          "childElReset 0.1s ease forwards"
         );
         createNote(`${timeEl.value} - ${ToDo.value}`, containerEl);
         toggleInput(timeEl, ToDo);
@@ -112,7 +140,6 @@ export const newProjBtns = (appendEl, name, containerEl) => {
         ToDo.value = "";
         const allChildren = document.querySelectorAll('[data-child="child"]');
         sortNames(...allChildren);
-        console.log(...allChildren);
       }
     });
 
@@ -137,36 +164,53 @@ export const newNotesBtns = (parentEl, name, containerEl) => {
   const elRight = elRightID.querySelector(
     `.${name.replace(/btn|\s|-|\d+|:/g, "")}`
   );
+
   let isOpen = toggleOn();
 
-  const btn = CreateElEvent("button")
-    .appendTo(parentEl)
-    .addText("edit")
-    .addId(`${name}Btn`);
+  const btn = CreateElEvent("button").appendTo(parentEl).addId(`${name}Btn`);
 
   const deleteProj = CreateElEvent("button")
     .appendTo(parentEl)
-    .addText("Delete")
     .addId("delBtnTwo");
 
   deleteProj.addEventListener("click", () => {
     let text = containerEl.querySelector("p");
-    console.log(text.textContent);
     childEls = childEls.filter((el) => el !== text.textContent);
 
     console.log("new:", childEls);
     containerEl.remove();
+
+    let children = JSON.parse(localStorage.getItem("children"));
+
+    // removes item from children-Array
+    childrenArray.forEach((item, index) => {
+      if (item.id === containerEl.id) {
+        childrenArray.splice(index, 1);
+      }
+    });
+
+    // removes item from localStorage
+    for (let i = 0; children.length; i++) {
+      if (children[i].id == containerEl.id) {
+        children.splice(i, 1);
+        break;
+      }
+    }
+
+    // "re-shapes" storage with updated items
+    children = JSON.stringify(children);
+    localStorage.setItem("children", children);
   });
 
   const changeColor = CreateElEvent("button")
     .appendTo(parentEl)
-    .addText("ClrChange")
+    .addText("#")
     .addId("clrBtn")
     .addEvent("click", () => console.log("hi"));
 
   btn.addEventListener("click", () => {
     if (!isOpen.getValue()) {
-      addAnimate(elRight, isOpen.getValue(), "childEditDis 0.3s ease forwards");
+      addAnimate(elRight, isOpen.getValue(), "childEditDis 0.1s ease forwards");
       isOpen.turnTrue();
     } else {
       addAnimate(
@@ -178,26 +222,32 @@ export const newNotesBtns = (parentEl, name, containerEl) => {
     }
   });
 
+  const editIconEl = CreateEl("img").appendTo(btn).addId("plusBtnIcon");
+  editIconEl.src = editIcon;
+  editIconEl.alt = "Edit icon";
+
+  const delIconEl = CreateEl("img").appendTo(deleteProj).addId("delBtnIcon");
+  delIconEl.src = deleteIcon;
+  delIconEl.alt = "Delete Icon";
+
   return btn;
 };
 
 export const createNote = (elName, parentEl) => {
   const elNameClean = elName.replace(/btn|\s|-|\d+|:/g, ""); // for child-animation
   const elNameNumbers = elName.replace(/[a-zA-Z]|\s|-/g, ""); // plain numbers to help sort names
-  console.log(parentEl);
-  const parentElFirstDigit = parentEl.id.replace(/^(.).*/, "$1");
+  const parentElFirstDigit = getFirstNumber(parentEl);
+  const parentId = returnId(parentEl);
   if (
     !childEls.includes(
       `${parentElFirstDigit} - ${elNameNumbers} - ${elNameClean}`
     )
   ) {
-    const parentElId = parentEl.id;
-    const parentElement = document.getElementById(parentElId);
-    console.log(parentElId);
+    const parentElement = getId(parentEl);
     const note = CreateElAttribute("div")
       .appendTo(parentElement)
       .addAttribute("data-child", `child`)
-      .addId(`${parentEl.id} - ${elNameNumbers}`);
+      .addId(`${parentId} - ${elNameNumbers}`);
 
     const container = NewProjectDivs(note);
     container.elRight.classList.add(elNameClean);
@@ -207,7 +257,9 @@ export const createNote = (elName, parentEl) => {
       `${parentElFirstDigit}${elNameNumbers} - ${elNameClean}`
     );
     childEls.sort();
-    console.log(childEls);
+
+    populateChildren(`${note.id}`, parentElement, elName);
+
     return {
       note,
     };
@@ -224,9 +276,8 @@ export const addInput = (input, date, appendToEl) => {
   let elName = StoreInput(input);
   let elDate = addDate(date);
   let elDateLogic = format(elDate, "dd/MM/yyyy");
-  console.log(elDateLogic);
-  console.log(elDate);
   let titleDate;
+
   n++;
   if (elDateLogic === today) {
     titleDate = "Today";
@@ -241,7 +292,28 @@ export const addInput = (input, date, appendToEl) => {
   newChild.classList.add("project");
   CreateChildDivs(elName, newChild);
 
+  populateStorage(elName, elDate, newChild);
   return {
     newChild,
   };
 };
+
+window.addEventListener("DOMContentLoaded", () => {
+  if (localStorage.length > 1) {
+    const items = JSON.parse(localStorage.getItem("items"));
+
+    items.forEach((child) => {
+      addInput(child.text, child.date, document.getElementById("mainContent"));
+    });
+
+    const childItems = JSON.parse(localStorage.getItem("children"));
+
+    childItems.forEach((child) => {
+      createNote(child.name, child.parent);
+      const allChildren = document.querySelectorAll('[data-child="child"]');
+      sortNames(...allChildren);
+    });
+  }
+
+  allBtn.click();
+});

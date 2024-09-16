@@ -5,7 +5,7 @@ import { svgDiv } from "./UI";
 // svg animation
 export const loadAnimation = () => {
   const animation = lottie.loadAnimation({
-    container: svgDiv.el,
+    container: svgDiv,
     renderer: "svg",
     loop: false,
     autoplay: false,

@@ -1,5 +1,6 @@
 import { format, addYears } from "date-fns";
-import { newProjBtns, childEls } from "./projectBuildBlocks";
+
+import { newProjBtns, childEls, addInput } from "./projectBuildBlocks";
 
 // create generic el
 export const CreateEl = (typeOfEl) => {
@@ -29,9 +30,14 @@ export const addDate = (date) => {
     const today = new Date();
     return format(today, "MM/dd/yyyy");
   } else {
-    const otherDay = format(new Date(date.value), "MM/dd/yyyy");
-    date.value = "";
-    return otherDay;
+    if (date.value) {
+      const otherDay = format(new Date(date.value), "MM/dd/yyyy");
+      date.value = "";
+      return otherDay;
+    } else {
+      const otherDay = format(new Date(date), "MM/dd/yyyy");
+      return otherDay;
+    }
   }
 };
 
@@ -91,9 +97,14 @@ export const toggleOn = () => {
 
 // stores general input in variable and cleans input
 export const StoreInput = (input) => {
-  let userInput = input.value;
-  input.value = "";
-  return userInput;
+  if (input.value) {
+    let userInput = input.value;
+    input.value = "";
+    return userInput;
+  } else {
+    let userInput = input;
+    return userInput;
+  }
 };
 
 // text-switch for elements
@@ -119,7 +130,7 @@ export const checkElements = (compareFn, showFn, hideFn, ...elements) => {
 // extends checkElements > enables grid on matching key
 export const checkDate = (element) => {
   const todayEl = format(new Date(), "yyyyMMdd");
-  const futureDate = addYears(new Date(), 100);
+  const futureDate = addYears(new Date(), 3000);
   const formattedFuture = format(futureDate, "yyyyMMdd");
   return {
     "===": element.id.replace(/^[0-9]/, "") === todayEl,
@@ -166,6 +177,7 @@ export const NewProjectDivs = (parentEl) => {
 export const CreateChildDivs = (elName, containerEl) => {
   const container = NewProjectDivs(containerEl, elName);
   newProjBtns(container.elLeft, elName, containerEl);
+
   return {
     container,
   };
@@ -228,5 +240,54 @@ export const sortProjects = (array, ...projects) => {
   }
 };
 
-// add title inside body-container (center
-// - title represents section, for example: Today, Upcoming, All
+// to return projects first number
+export let getFirstNumber = (value) => {
+  if (value.id) {
+    return value.id.replace(/^(.).*/, "$1");
+  } else {
+    return value.replace(/^(.).*/, "$1");
+  }
+};
+
+// simplify
+export const getId = (value) => {
+  if (value.id) {
+    return document.getElementById(value.id);
+  } else {
+    return document.getElementById(value);
+  }
+};
+
+// returns projects ids
+export const returnId = (value) => {
+  if (value.id) {
+    return value.id;
+  } else {
+    return value;
+  }
+};
+
+export let itemArray = CreateArray();
+
+export const populateStorage = (name, date, child) => {
+  let dataObj = {};
+  dataObj.text = name;
+  dataObj.date = date;
+  dataObj.id = child.id;
+
+  itemArray.push(dataObj);
+
+  localStorage.setItem("items", JSON.stringify(itemArray));
+};
+
+export let childrenArray = CreateArray();
+export const populateChildren = (child, parentEl, name) => {
+  let dataObj = {};
+  dataObj.id = child;
+  dataObj.parent = parentEl.id;
+  dataObj.name = name;
+
+  childrenArray.push(dataObj);
+
+  localStorage.setItem("children", JSON.stringify(childrenArray));
+};

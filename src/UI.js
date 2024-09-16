@@ -2,7 +2,7 @@ import { CreateEl, CreateElAttribute } from "./backbone.js";
 
 export const mainHeader = CreateEl("header")
   .appendTo(document.body)
-  .addText("The ultimate ToDo List");
+  .addText("The ultimate ToDo List - I gave up on styling this project");
 
 export const buttonDiv = CreateEl("div")
   .appendTo(mainHeader)

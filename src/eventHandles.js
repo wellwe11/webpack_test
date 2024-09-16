@@ -21,7 +21,6 @@ import {
   toggleOn,
   CreateArray,
   compareFnChildren,
-  getLastChild,
   sortProjects,
 } from "./backbone";
 import "./sidePannel.css";
@@ -142,6 +141,9 @@ upcomingBtn.addEventListener("click", () => {
     gridOff,
     ...allChildren
   );
+  sortProjects(projectArr, ...allChildren);
+  projectArr.sort(compareFnChildren);
+  projectArr.forEach((child, index) => (child.style.gridRow = index + 1));
 });
 
 let projectArr = CreateArray();
@@ -157,7 +159,6 @@ allBtn.addEventListener("click", () => {
   );
   sortProjects(projectArr, ...allChildren);
   projectArr.sort(compareFnChildren);
-  console.log(projectArr);
   projectArr.forEach((child, index) => (child.style.gridRow = index + 1));
 
   return;

@@ -18,7 +18,7 @@
   width: 100%;
 
   display: grid;
-  grid-template-columns: repeat(auto, 1fr);
+  grid-template-columns: max-content auto auto;
   grid-template-rows: repeat(auto);
   align-items: center;
   justify-items: flex-start;
@@ -34,15 +34,20 @@
 
 .project > #projRight {
   display: block;
-  height: 26px;
-  width: 20%;
-  position: absolute;
-  align-self: self-start;
-  margin-top: 19px;
+  height: 100%;
+  width: 100%;
   margin-left: 40px;
+  grid-column: 2;
+  grid-row: 1;
   background-color: #f6f0e0;
+
   transition: 1 ease-in-out, transform 0.3s ease;
   animation-direction: normal;
+}
+
+.project > #projLeft {
+  grid-column: 2;
+  grid-row: 1;
 }
 
 #projLeft,
@@ -51,12 +56,13 @@
 
   align-items: center;
   justify-items: flex-start;
-  grid-row: 2;
 }
 
 [data-child="child"] #projLeft {
   justify-content: flex-start;
   width: 30%;
+  grid-row: 1;
+  grid-column: 2;
 }
 
 #addBtn,
@@ -67,26 +73,29 @@
   overflow: hidden;
 }
 
-#plusBtnIcon {
-  height: 20px;
-}
-
+#editBtnEl,
+#plusBtnIcon,
 #delBtnIcon {
-  height: 20px;
+  height: 70%;
+  align-self: center;
 }
 
-#editBtnEl {
-  height: 20px;
+[data-child="child"] #editBtnEl,
+[data-child="child"] #plusBtnIcon,
+[data-child="child"] #delBtnIcon {
+  height: 50%;
+  align-self: center;
 }
 
 [data-child="child"] #projRight {
-  position: absolute;
-  width: 20%;
-  height: 25px;
+  width: 50%;
+  height: 100%;
   margin-left: 40px;
   background-color: #f6f0e0;
   transition: 1 ease-in-out, transform 0.3s ease;
   animation-direction: normal;
+  grid-row: 1;
+  grid-column: 2;
 }
 
 @keyframes childEditAppear {
@@ -143,10 +152,10 @@
 }
 
 #timeInput,
-#timeBtn,
-/* #timeBtnTwo, */
 #toDoInput {
   display: none;
+  height: 25px;
+  margin-left: 2px;
 }
 
 #toDoInput {
@@ -154,7 +163,7 @@
 }
 
 #timeInput {
-  width: 20%;
+  width: 27%;
 }
 
 #mainContent div[data-child] {
@@ -168,9 +177,9 @@
   border-bottom: 1px rgb(110, 110, 110, 0.5) solid;
 
   display: grid;
-  align-items: end;
-  grid-template-columns: auto;
-  grid-template-rows: auto;
+  align-items: center;
+  grid-template-columns: max-content 50% 50%;
+  grid-template-rows: 8vh;
 }
 
 #mainContent .project {
@@ -180,6 +189,7 @@
 
 #mainContent div[data-child] button {
   height: 25px;
+  align-items: center;
 }
 
 #mainContent div[data-child] p {
@@ -195,7 +205,15 @@
 }
 
 #mainContent button {
-  background-color: red;
+  background-color: #f6f0e0;
+  border: none;
+  width: 40px;
+  height: 25px;
+}
+
+#mainContent button:hover {
+  border: 1px solid black;
+  border-radius: 10px;
   width: 40px;
   height: 25px;
 }

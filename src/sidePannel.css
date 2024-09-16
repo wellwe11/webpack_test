@@ -1,37 +1,41 @@
 #bodyContainer #leftContent {
   display: flex;
-
-  margin-top: 3rem;
   width: 25%;
-  margin-left: 1rem;
 }
 
 #leftOne {
   width: 100%;
-  border-top: 1px rgb(110, 110, 110, 0.5) solid;
-  border-bottom: 1px rgb(110, 110, 110, 0.5) solid;
+  background: rgba(100, 100, 100, 0.1);
   align-content: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #leftOne button {
+  background-color: rgba(1, 1, 1, 0);
   height: 2rem;
-  background-color: #f6f0e0;
   border: none;
-  width: 100%;
+  width: 95%;
   cursor: pointer;
-
   text-align: start;
+  margin-top: 3px;
 }
 
 #leftOne button:focus {
-  background: linear-gradient(to right, rgba(1, 1, 1, 0.2), #f6f0e0);
-  border-radius: 3px;
+  background-color: rgba(1, 1, 1, 0.1);
+  border-radius: 7px;
+  padding: 3px;
+}
+
+#createNewProjTodayBtn {
+  margin-top: 50px !important;
 }
 
 #leftOne input {
   padding: 2px;
+  margin-top: 55px;
   height: 1.4rem;
-  margin-top: 0.3rem;
   position: absolute;
   visibility: visible;
   border: none;
@@ -43,7 +47,7 @@
       rgba(158, 157, 193, 0),
       rgba(158, 157, 193, 0)
     ),
-    linear-gradient(to top, rgba(1, 1, 1, 0.2), rgba(1, 1, 1, 0.2));
+    linear-gradient(to top, rgba(1, 1, 1, 0.4), rgba(1, 1, 1, 0.4));
   background-size: 0.1em 100%, 0.1em 0;
   background-position: 0 100%, 0 100%;
   background-repeat: no-repeat;
@@ -53,7 +57,7 @@
 
 #leftOne input:hover {
   background-size: 0.1em 0, 0.1em 100%;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.2s ease-in-out;
   background-color: rgb(246, 246, 246, 1);
 }
 
@@ -65,59 +69,59 @@
 }
 
 #leftOne #newProjectInputTodayName {
-  margin-left: -14.7rem;
+  margin-left: -7rem;
   width: 0.2rem;
 }
 
 #leftOne #newProjectInputTodayDate {
-  margin-left: -15rem;
+  margin-left: -6.2rem;
 
   width: 0.2rem;
 }
 
 @keyframes addProjAppear {
   0% {
-    margin-left: -15rem;
+    margin-left: -7rem;
     width: 0.2rem;
   }
 
   100% {
-    margin-left: -18.7rem;
+    margin-left: -8rem;
     width: 7rem;
   }
 }
 
 @keyframes addProjDis {
   0% {
-    margin-left: -18.7rem;
+    margin-left: -8rem;
     width: 7rem;
   }
   100% {
-    margin-left: -15rem;
+    margin-left: -7rem;
     width: 0.2rem;
   }
 }
 
 @keyframes addProjAppearDate {
   0% {
-    margin-left: -14.7rem;
+    margin-left: -8rem;
     width: 0.2rem;
   }
 
   100% {
-    margin-left: -11.5rem;
+    margin-left: 6.2rem;
     width: 7rem;
   }
 }
 
 @keyframes addProjDisDate {
   0% {
-    margin-left: -11.5rem;
+    margin-left: -8rem;
     width: 7rem;
   }
 
   100% {
-    margin-left: -14.7rem;
+    margin-left: -6.2rem;
     width: 0.2rem;
   }
 }
