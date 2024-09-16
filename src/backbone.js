@@ -251,10 +251,12 @@ export let getFirstNumber = (value) => {
 
 // simplify
 export const getId = (value) => {
-  if (value.id) {
-    return document.getElementById(value.id);
-  } else {
-    return document.getElementById(value);
+  if (value instanceof Element) {
+    if (value.id) {
+      return document.getElementById(value.id);
+    } else {
+      return document.getElementById(value);
+    }
   }
 };
 

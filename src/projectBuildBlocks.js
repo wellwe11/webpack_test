@@ -191,7 +191,8 @@ export const newNotesBtns = (parentEl, name, containerEl) => {
 
     // removes item from localStorage
     for (let i = 0; children.length; i++) {
-      if (children[i].id == containerEl.id) {
+      if (children[i].id === containerEl.id) {
+        console.log(children[i].id);
         children.splice(i, 1);
         break;
       }
