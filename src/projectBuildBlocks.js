@@ -89,9 +89,17 @@ export const newProjBtns = (appendEl, name, containerEl) => {
     .appendTo(appendEl)
     .addId("delBtn")
     .addEvent("click", () => {
-      containerEl.remove();
-
       let items = JSON.parse(localStorage.getItem("items"));
+
+      const children = document.querySelectorAll('[data-child="child"]');
+      children.forEach((child) => {
+        if (child.id.slice(0, 9) === containerEl.id) {
+          const button = document.getElementById("delBtnTwo");
+          button.click();
+        }
+      });
+
+      containerEl.remove();
 
       // removes item from itemArray
       itemArray.forEach((item, index) => {
@@ -307,14 +315,15 @@ window.addEventListener("DOMContentLoaded", () => {
       addInput(child.text, child.date, document.getElementById("mainContent"));
     });
 
-    const childItems = JSON.parse(localStorage.getItem("children"));
+    if (localStorage.getItem("children")) {
+      const childItems = JSON.parse(localStorage.getItem("children"));
 
-    childItems.forEach((child) => {
-      createNote(child.name, child.parent);
-      const allChildren = document.querySelectorAll('[data-child="child"]');
-      sortNames(...allChildren);
-    });
+      childItems.forEach((child) => {
+        createNote(child.name, child.parent);
+        const allChildren = document.querySelectorAll('[data-child="child"]');
+        sortNames(...allChildren);
+      });
+    }
   }
-
   allBtn.click();
 });
